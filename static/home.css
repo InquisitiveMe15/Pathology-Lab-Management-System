@@ -1,0 +1,64 @@
+body{
+  text-align:center;
+  background-color: white;
+}
+.containing{
+  display: flex;
+}
+.navbar-brand{
+  font-family: 'Roboto Slab', serif;
+  font-size:1.7rem;
+  font-weight:900;
+  letter-spacing:2px;
+}
+li a{
+  font-family: 'Noto Sans Mono', monospace;
+}
+.card{
+  flex:1;
+  display:flex;
+  margin: 15px;
+}
+.d-flex{
+  width: 30%;
+  margin: 70px auto 40px auto;
+}
+.card-img-top{
+  flex-direction: column;
+  height: 200px;
+  width:100%;
+}
+.card-body{
+  flex-direction: column;
+  background-color: #CAB8FF;
+  cursor:pointer;
+}
+.card-title{
+  font-family: 'Architects Daughter', cursive;
+  font-weight:400;
+  font-size:1.6rem;
+}
+.footer{
+   position:absolute;
+   bottom:0;
+   width:100%;
+   background-color:#F0D9FF;
+   margin-bottom:0;
+}
+.footer .p1{
+   color: white;
+   font-size:1rem;
+   padding-top: 15px;
+   font-family: monospace;
+   margin-bottom:0;
+}
+.footer .p2{
+  color: white;
+  font-size:1rem;
+  padding-bottom: 15px;
+  font-family: monospace;
+  margin:0;
+}
+.card div:hover{
+  background-color: #F0D9FF;
+}
