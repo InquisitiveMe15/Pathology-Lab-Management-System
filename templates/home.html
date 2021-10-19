@@ -8,6 +8,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Noto+Sans+Mono:wght@300&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  load_data();
+  function load_data(txt)
+  {
+   $.ajax({
+    url:"/ajaxlivesearch",
+    method:"POST",
+    data:{query:txt},
+    success:function(data)
+    {
+      $('#result').html(data);
+      $("#result").append(data.htmlresponse);
+    }
+   });
+  }
+  $('#search_text').keyup(function(){
+    var search = $(this).val();
+    if(search != ''){
+    load_data(search);
+   }else{
+    load_data();
+   }
+  });
+});
+</script>
   </head>
   <body>
 
@@ -41,10 +70,21 @@
 </nav>
 
 <!-- searchbar -->
-<form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search Patient" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
+<div class="container search-table">
+  <!-- <p><h2 align="center">Patients
+  </h2></p> -->
+              <div class="search-box">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <h5>Search Patient</h5>
+                      </div>
+                      <div class="col-md-9">
+                          <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search patient by name">
+                      </div> 
+                  </div>
+              </div>
+     <div id="result"></div>
+  </div>
 
 <!-- card options -->
 <div class="containing">
@@ -75,12 +115,38 @@
 </div>
 
 <!-- footer -->
-<div class="footer">
+<div class="card" style="width: 18rem;">
+<div class="page-footer" >
   <p class="p1">Contact us at: +91-838323862</p>
   <p class="p2">@pathology.management</p>
+</div>
 </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  </body>
+    <style>
+      .search-table{
+          padding: 10%;
+          margin-top: -6%;
+      }
+      .search-box{
+          background: #ccb1d3;
+          border: 1px solid #ababab;
+          padding: 3%;
+      }
+      .search-box input:focus{
+          box-shadow:none;
+          border:2px solid #eeeeee;
+      }
+      .search-list{
+          background: #fff;
+          border: 1px solid #967171;
+          border-top: none;
+      }
+      .containing{
+        margin-bottom: 2cm;
+      }
+      
+      </style>
+      </body>
 </html>
