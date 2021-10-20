@@ -58,16 +58,16 @@
             <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">| View Tests</a>
+            <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">| Add Test</a>
+            <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">| Search Patient</a>
+            <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">| Place Order</a>
+            <a class="nav-link" href="{{ url_for('placeOrderPage') }}">| Place Order</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">| About</a>
@@ -113,21 +113,21 @@
     <div class="card" style="width: 18rem;">
       <img src="https://www.collinsdictionary.com/images/full/book_181404689_1000.jpg" class="card-img-top" alt="...">
       <div class="card-body">
-        <a href="" class="card-title">View Tests</a>
+        <a href="{{ url_for('viewTestPage') }}" class="card-title">View Tests</a>
       </div>
     </div>
     <div class="card" style="width: 18rem;">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQrJnpxTdJvTzVQMTu2gwZZ7RZrgD4vwtUnQ&usqp=CAU"
         class="card-img-top" alt="...">
       <div class="card-body">
-        <a href="#" class="card-title">Add Test</a>
+        <a href="{{ url_for('addTestPage')}}" class="card-title">Add Test</a>
       </div>
     </div>
     <div class="card" style="width: 18rem;">
       <img src="https://www.oldewalkervillepharmacy.com/wp-content/uploads/2019/02/order-icon-300x300.png"
         class="card-img-top" alt="...">
       <div class="card-body">
-        <a href="#" class="card-title">Place an Order</a>
+        <a href="{{ url_for('placeOrderPage') }}" class="card-title">Place an Order</a>
       </div>
     </div>
   </div>

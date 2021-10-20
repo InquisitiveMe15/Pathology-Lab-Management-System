@@ -1,6 +1,6 @@
 body {
     margin: auto;
-    background: #f7eefc;  
+    background-color: #f7eefc;  
     font-family: 'Open Sans', sans-serif;
   }
   .navbar{
@@ -24,15 +24,6 @@ body {
     font-weight: 700;
   }
   
-  .greet p {
-    font-size: 30px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    text-align:center;
-    color:rgb(255, 118, 118);
-    text-transform:none;
-    font-weight:600;
-    margin-top:2px
-  }
   
   form h1 {
     font-size: 18px;
@@ -75,7 +66,7 @@ body {
     border-radius: 0px 5px 5px 0px;
     border: 1px solid #CAB8FF;
     margin-bottom: 15px;
-    width: 75%;
+    width: 94%;
     height: 42px;
     float: left;
     padding: 0px 15px;
@@ -99,6 +90,10 @@ body {
   .form-group {
     overflow: hidden;
     clear: both;
+  }
+  
+  .form-group p {
+    margin-left: 10px;
   }
   
   .icon-case {
@@ -134,20 +129,20 @@ body {
     font-size: 18px;
   }
   
-  .leftcontact {
-    width:49.5%; 
-    float:left;
+  .row {
+    /* width:49.5%;  */
+    /* float:left; */
     border-right: 1px dotted #CCC;
     box-sizing: border-box;
     padding: 0px 15px 0px 0px;
   }
   
-  .rightcontact {
+  /* .rightcontact {
     width:49.5%;
     float:right;
     box-sizing: border-box;
     padding: 0px 0px 0px 15px;
-  }
+  } */
 
   #sendmessage{
       font-size: 30px;
