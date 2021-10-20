@@ -1,55 +1,70 @@
-# import the flask class
-# from flask import Flask, session, render_template, request,make_response,redirect,jsonify
-# # from flask_mysql import MySQL
-# from flaskext.mysql import MySQL
+from flask import Flask, session, render_template, request,make_response,redirect,flash,jsonify
+# from flask_mysql import MySQL
+from flaskext.mysql import MySQL
 
-# # instatiating flask class
-# app=Flask(__name__)
-# mysql = MySQL()
 
-# # configuring MySQL for the web application
-# app.config['MYSQL_DATABASE_USER'] = 'root'    # default user of MySQL to be replaced with appropriate username
-# app.config['MYSQL_DATABASE_PASSWORD'] = 'kanchi123456@' # default passwrod of MySQL to be replaced with appropriate password
-# app.config['MYSQL_DATABASE_DB'] = 'pathology'  # Database name to be replaced with appropriate database name
-# app.config['MYSQL_DATABASE_HOST'] = 'localhost' # default database host of MySQL to be replaced with appropriate database host
-# #initialise mySQL
-# mysql.init_app(app)
-# #creating connection to access data
-# conn = mysql.connect()
-from flask import Flask, render_template, request, jsonify
-from flask_mysqldb import MySQL,MySQLdb 
- 
-app = Flask(__name__)
-        
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'kanchi123456@'
-app.config['MYSQL_DB'] = 'pathology'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-mysql = MySQL(app)
+app=Flask(__name__)
+mysql = MySQL()
+
+# configuring MySQL for the web application
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J' 
+app.config['MYSQL_DATABASE_DB'] = 'pathology'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost' 
+mysql.init_app(app)
+conn = mysql.connect()
+cursor = conn.cursor()
+
+
 @app.route('/')
 def home():
-    # return("HELLO!!")
     return render_template("home.html")
+
+@app.route('/addPatientPage')
+def addPatientPage():
+    return render_template("addpatient.html")
+
+@app.route('/AddPatient', methods=['GET', 'POST'])
+def AddPatient():
+    warning = ''
+    if request.method == 'POST' and 'patientId' in request.form and 'name' in request.form and 'gender' in request.form and 'age' in request.form and 'address' in request.form and 'mobileNumber' in request.form and 'email' in request.form:
+        print("YES")
+        patientId = request.form['patientId']
+        name = request.form['name']
+        gender = request.form['gender']
+        age = request.form['age']
+        address = request.form['address']
+        mobileNumber = request.form['mobileNumber']
+        email = request.form['email']
+        cursor.execute(
+            'SELECT * FROM patient WHERE patientId = % s', (patientId,))
+        patient = cursor.fetchone()
+        if patient:
+            warning = "This patient patientId already exists."
+        elif not patientId or not name or not gender or not age or not address or not mobileNumber or not email:
+            warning = 'Please fill all the required details first !'
+        else:
+            cursor.execute('INSERT INTO patient VALUES (%s, % s, % s, % s, %s, %s, %s)',
+                           (patientId, name, gender, age, mobileNumber, email, address))
+            conn.commit()
+            warning = 'Patient added successfully ! '
+    return render_template('addpatient.html', warning=warning)
+
 @app.route("/ajaxlivesearch",methods=["POST","GET"])
 def ajaxlivesearch():
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # cursor = conn.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'POST':
         search_word = request.form['query']
-        print(search_word)
+        # print(search_word)
         if search_word == '':
             query = "SELECT * from patient ORDER BY patientId"
-            cur.execute(query)
-            patient = cur.fetchall()
+            cursor.execute(query)
+            numrows = int(cursor.rowcount)
+            patient = cursor.fetchall()
         else:    
             query = "SELECT * from patient WHERE name LIKE '%{}%'  ORDER BY patientId DESC LIMIT 20".format(search_word)
-            cur.execute(query)
-            numrows = int(cur.rowcount)
-            patient = cur.fetchall()
+            cursor.execute(query)
+            numrows = int(cursor.rowcount)
+            patient = cursor.fetchall()
 			
     return jsonify({'htmlresponse': render_template('response.html', patient=patient, numrows=numrows)})
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

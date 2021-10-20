@@ -15,7 +15,7 @@
   <tbody>
 
 {% for row in patient %}  
-   <tr>
+   <!-- <tr>
     <td>{{row.patientId}}</td>
     <td>{{row.name}}</td>
     <td>{{row.gender}}</td>
@@ -23,5 +23,14 @@
     <td>{{row.mobileNumber}}</td>
     <td>{{row.email}}</td>
     <td>{{row.address}}</td>
+   </tr> -->
+   <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+    <td>{{row[5]}}</td>
+    <td>{{row[6]}}</td>
    </tr>
 {% endfor %} 
