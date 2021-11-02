@@ -8,14 +8,17 @@ mysql = MySQL()
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'kanchi123456@'
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-
+cursor.execute('SELECT * FROM test')
+testlist = cursor.fetchall()
+cursor.execute('SELECT name FROM patient')
+patientnamelist = cursor.fetchall()
 @app.route('/')
 def home():
     return render_template("home.html")
@@ -42,8 +45,61 @@ def editTestPage():
 
 @app.route('/placeOrderPage')
 def placeOrderPage():
+    print(testlist)
+    return render_template("placeorder.html", testlist=testlist,patientnamelist=patientnamelist)
     return("Working")
-    return render_template("placeorder.html")
+@app.route('/makebill', methods=['GET', 'POST'])
+def makebill():
+    if request.method == 'POST':
+        patientname = request.form['patientname']
+        alltest=[]
+        test1= request.form['test1']
+        if(test1 !="NULL"):
+            alltest.append(test1)
+        test2=request.form['test2']
+        if(test2 !="NULL"):
+            alltest.append(test2) 
+        test3=request.form['test3']
+        if(test3 !="NULL"):
+            alltest.append(test3)
+        test4=request.form['test4']
+        if(test4 !="NULL"):
+            alltest.append(test4)
+        print(test1)  
+        print(test2)
+        
+    alltestid=[]
+    for name in alltest:
+        query_string = ("SELECT testId FROM test WHERE testName='{}'".format(name))
+        cursor.execute(query_string)
+        row = cursor.fetchone()
+        while(row != None):
+            alltestid.append(row[0])
+            row = cursor.fetchone()
+    print(alltestid)
+
+    alltestprice=[]
+    for name in alltest:
+        query_string = ("SELECT price FROM test WHERE testName='{}'".format(name))
+        cursor.execute(query_string)
+        row = cursor.fetchone()
+        while(row != None):
+            alltestprice.append(row[0])
+            row = cursor.fetchone()
+    print(alltestprice)
+     
+    result = []
+    length = len(alltest)
+    total=sum(int(alltestprice[i]) for i in range(length))
+    result.append(alltestid)
+    result.append(alltest)
+    result.append(alltestprice)
+    return render_template("bill.html", result=result, length=length,total=total,patientname=patientname)
+    return("working")
+
+
+        
+
 
 
 @app.route('/AddPatient', methods=['GET', 'POST'])
@@ -141,7 +197,7 @@ def viewTestPage():
 def ajaxlivesearch():
     # cursor = conn.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'POST':
-        search_word = request.form['query']
+        search_word = request.form['sendData']
         # print(search_word)
         if search_word == '':
             query = "SELECT * from patient ORDER BY patientId"
@@ -179,3 +235,6 @@ def EditTest():
             warning = 'Test details updated.'
     return render_template('editTest.html', warning=warning)
     return("Working")
+
+if __name__ == '__main__':
+    app.run(debug=True)
