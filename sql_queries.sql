@@ -48,3 +48,21 @@ CREATE TABLE `test` (
   `price` varchar(45) NOT NULL,
   PRIMARY KEY (`testId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE doctor (
+	id VARCHAR(45) PRIMARY KEY,
+    name VARCHAR(45),
+    email VARCHAR(45),
+    mobile_number VARCHAR(45)
+
+);
+CREATE TABLE equipments (
+	id VARCHAR(45) PRIMARY KEY,
+    name VARCHAR(45),
+    price INT,
+    in_stock INT
+
+);
+
+ALTER TABLE `order` ADD doctor_id VARCHAR(45);
+ALTER TABLE `order` ADD FOREIGN KEY (doctor_id) REFERENCES doctor(id);
