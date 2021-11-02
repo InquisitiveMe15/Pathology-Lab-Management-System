@@ -23,7 +23,7 @@
         $.ajax({
           url: "/ajaxlivesearch",
           method: "POST",
-          data: { query: txt },
+          data: { sendData: txt },
           success: function (data) {
             $('#result').html(data);
             $("#result").append(data.htmlresponse);
