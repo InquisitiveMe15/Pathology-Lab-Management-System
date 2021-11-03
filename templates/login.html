@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login Screen</title>
+
+    <style media="screen">
+
+      body{
+        background-image: url("https://media.istockphoto.com/videos/light-grey-white-looped-gradient-abstract-background-video-id1224826528?b=1&k=20&m=1224826528&s=640x640&h=Mtnb93u3qiqV-jDN1voZOqwIEtUPFqQ_NnIHe8IXWso=");
+        background-repeat: no-repeat;
+        background-size: cover;
+        text-align: center;
+      }
+      h1{
+        margin-top: 200px;
+        color: rgb(145,0,255);
+        letter-spacing: 1.5px;
+      }
+      h3{
+        color: #CAB8FF;
+        letter-spacing: 1.2px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .loginform{
+        width: 20%;
+        height:auto;
+        margin: 40px auto;
+        background-color: #CAB8FF;
+      }
+      input{
+        margin: 20px auto;
+        height: 37px;
+        width: 80%;
+        border: none;
+        color: rgb(145,0,255);
+      }
+      button{
+        margin:2px auto 10px auto;
+        background-color: rgb(145,0,255);
+        height: 40px;
+        width:80%;
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+
+
+  <body>
+    <h1>Welcome to the Pathology Lab Management System!</h1>
+    <h3>Please enter the Lab Password to visit the software system.</h3>
+    <form class="loginform" action="{{url_for('login')}}" method="post">
+      {% if messg == 0 %}
+          <p>Incorrect Password, please try again</p>
+      {% endif %}
+      <input type="password" name="pwd" placeholder="password"><br>
+      <button type="submit" name="button">Login</button>
+    </form>
+  </body>
+</html>
