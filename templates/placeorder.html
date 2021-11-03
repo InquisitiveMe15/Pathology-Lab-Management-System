@@ -63,7 +63,8 @@
     <form method="POST" action="{{ url_for('makebill')}}" id="form" class="form"
             style="border: 5px solid rgb(131, 121, 167); border-radius: 10px; padding: 2%;">
             
-            <div><h>Patient name :</h2>
+            <div>
+                <h>Patient name :</h2>
                 <SELECT name="patientname" id="patient" style="font-family:verdana">
                     <option value="NULL">NULL</option>
                     {% for j in patientnamelist %}
@@ -71,6 +72,14 @@
                     {% endfor %}
                 </SELECT>
                 <br>
+                <h>Doctor name :</h2>
+                    <SELECT name="doctorname" id="doctor" style="font-family:verdana">
+                        <option value="NULL">NULL</option>
+                        {% for j in doctornamelist %}
+                        <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                    <br>
                 <h1 style="text-align: center;">SELECT TESTS</h1>
                 </div>
             </div>
