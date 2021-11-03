@@ -19,6 +19,8 @@ cursor.execute('SELECT * FROM test')
 testlist = cursor.fetchall()
 cursor.execute('SELECT name FROM patient')
 patientnamelist = cursor.fetchall()
+cursor.execute('SELECT name FROM doctor')
+doctornamelist = cursor.fetchall()
 @app.route('/')
 def home():
     return render_template("home.html")
@@ -46,12 +48,13 @@ def editTestPage():
 @app.route('/placeOrderPage')
 def placeOrderPage():
     print(testlist)
-    return render_template("placeorder.html", testlist=testlist,patientnamelist=patientnamelist)
+    return render_template("placeorder.html", testlist=testlist,patientnamelist=patientnamelist,doctornamelist=doctornamelist)
     return("Working")
 @app.route('/makebill', methods=['GET', 'POST'])
 def makebill():
     if request.method == 'POST':
         patientname = request.form['patientname']
+        doctorname = request.form['doctorname']
         alltest=[]
         test1= request.form['test1']
         if(test1 !="NULL"):
@@ -94,7 +97,7 @@ def makebill():
     result.append(alltestid)
     result.append(alltest)
     result.append(alltestprice)
-    return render_template("bill.html", result=result, length=length,total=total,patientname=patientname)
+    return render_template("bill.html", result=result, length=length,total=total,patientname=patientname,doctorname=doctorname)
     return("working")
 
 
