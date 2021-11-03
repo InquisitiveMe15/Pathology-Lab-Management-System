@@ -64,9 +64,29 @@
   .edit a:active {
     color: green;
   }
+  .add a{
+    font-size: 20px;
+  }
+  .add a:link{
+    text-decoration: none;
+  }
+  .add a:hover {
+    color: hotpink;
+    text-decoration: underline;
+  }
+  .add a:active {
+    color: green;
+  }
   .edit{
     padding: 2%;
     text-align: center;
     background-color: #F0D9FF;
     margin-bottom: 40px;
+  }
+  .add{
+    padding: 2%;
+    text-align: center;
+    background-color: #F0D9FF;
+    margin-bottom: 40px;
+    margin-top: 20px;
   }

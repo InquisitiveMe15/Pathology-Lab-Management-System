@@ -1,21 +1,22 @@
-
 <h3>{{numrows}} Records Found</h3>
 <table class="table table-striped custab">
   <thead>
-      <tr>
-        <th>PatientID</th>
-         <th>Name</th>
-         <th>Gender</th>
-         <th>Age</th>
-         <th>Phone No.</th>
-         <th>Email</th>
-         <th>Address</th>
-      </tr>
+    <tr>
+      <th>PatientID</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Phone No.</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Details</th>
+      <th>Edit</th>
+    </tr>
   </thead>
   <tbody>
 
-{% for row in patient %}  
-   <!-- <tr>
+    {% for row in patient %}
+    <!-- <tr>
     <td>{{row.patientId}}</td>
     <td>{{row.name}}</td>
     <td>{{row.gender}}</td>
@@ -24,13 +25,16 @@
     <td>{{row.email}}</td>
     <td>{{row.address}}</td>
    </tr> -->
-   <tr>
-    <td>{{row[0]}}</td>
-    <td>{{row[1]}}</td>
-    <td>{{row[2]}}</td>
-    <td>{{row[3]}}</td>
-    <td>{{row[4]}}</td>
-    <td>{{row[5]}}</td>
-    <td>{{row[6]}}</td>
-   </tr>
-{% endfor %} 
+
+    <tr>
+      <td>{{row[0]}}</td>
+      <td>{{row[1]}}</td>
+      <td>{{row[2]}}</td>
+      <td>{{row[3]}}</td>
+      <td>{{row[4]}}</td>
+      <td>{{row[5]}}</td>
+      <td>{{row[6]}}</td>
+      <td><a href="#">VIEW</a></td>
+      <td><a href="{{ url_for('editPatientPage')}}">EDIT</a></td>
+    </tr>
+    {% endfor %}

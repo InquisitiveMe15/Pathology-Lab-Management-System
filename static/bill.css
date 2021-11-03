@@ -25,11 +25,17 @@
   }
   
   h1 {
-    margin-top:50px;
+    margin-top:20px;
+    margin-bottom: 10px;
     color: #002366;
     text-shadow: 0 2 2 grey;
     font-size:3rem;
     text-align: center;
+  }
+  h3{
+      margin-top: 10px;
+      text-align: center;
+      font-size: 2rem;
   }
   table{
     margin: 20px auto 150px auto;
@@ -51,7 +57,7 @@
   tr:nth-child(odd) {
     background-color: #F0D9FF;
   }
-  .edit a{
+  /* .edit a{
     font-size: 20px;
   }
   .edit a:link{
@@ -69,4 +75,4 @@
     text-align: center;
     background-color: #F0D9FF;
     margin-bottom: 40px;
-  }
+  } */

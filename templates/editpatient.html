@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Patient</title>
-  <link rel="stylesheet" href="{{url_for('static',filename='addpatient.css')}}">
+  <title>Edit Patient</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='editpatient.css')}}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,7 +60,7 @@
     </div>
   </nav>
 
-  <h1 class="heading">New Patient Details</h1>
+  <h1 class="heading">Edit Patient Details</h1>
   <div class="greet">
     <p>WELCOME!</p>
   </div>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="contentform">
-    <form method="POST" action="{{ url_for('AddPatient')}}" id="form" class="form">
+    <form method="POST" action="{{ url_for('EditPatient')}}" id="form" class="form">
       <h1>Do you have any questions? please do not hesitate to <a href="#">contact us!</a> 🙂</h1>
 
       <div class="leftcontact">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Test</title>
+    <title>Place Order</title>
     <link rel="stylesheet" href="{{url_for('static',filename='addtest.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -35,10 +35,17 @@
                         <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('DoctorPage') }}">| Doctors</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
+                    </li>
+                    <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('equipmentPage')}}">| Equipments</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
@@ -49,82 +56,105 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">| About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">| Contact Us</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    <h1 class="heading">ADD TESTS</h1>
+    <h1 class="heading">Choose Tests</h1>
 
-   
+    <div id="sendmessage">
+        <div>{{ warning }}</div>
+    </div>
+
     <form method="POST" action="{{ url_for('makebill')}}" id="form" class="form"
-            style="border: 5px solid rgb(131, 121, 167); border-radius: 10px; padding: 2%;">
-            
-            <div>
-                <h>Patient name :</h2>
-                <SELECT name="patientname" id="patient" style="font-family:verdana">
+        style="border: 5px solid rgb(131, 121, 167); border-radius: 10px; padding: 2%;">
+    <div style="text-align: center; margin-bottom: 15px;">
+        <div style="margin: 5px;">
+            <h4>Patient name : <span>*</span></h4>
+                <SELECT name="patientname" id="patientname" style="font-family:verdana">
                     <option value="NULL">NULL</option>
                     {% for j in patientnamelist %}
                     <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
                     {% endfor %}
                 </SELECT>
                 <br>
-                <h>Doctor name :</h2>
-                    <SELECT name="doctorname" id="doctor" style="font-family:verdana">
-                        <option value="NULL">NULL</option>
-                        {% for j in doctornamelist %}
-                        <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
-                        {% endfor %}
-                    </SELECT>
-                    <br>
-                <h1 style="text-align: center;">SELECT TESTS</h1>
-                </div>
-            </div>
 
-            <div class="mb-3" style="margin: 20px;">
-                
-                <!-- <label for="test" class="form-label">SELECT TESTS </label> -->
-                <br>
-                
-                <SELECT name="test1" id="test1" style="font-family:verdana">
+        </div>
+
+        <div style="margin: 5px;">
+            <h4>Patient ID : <span>*</span></h4>
+                <SELECT name="patientId" id="patientId" style="font-family:verdana">
                     <option value="NULL">NULL</option>
-                    {% for j in testlist %}
-                    <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                    {% for j in patientidlist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
                     {% endfor %}
                 </SELECT>
                 <br>
-                <SELECT name="test2" id="test2" style="font-family:verdana">
+
+        </div>
+
+        <div style="margin: 5px;">
+            <h4>Prescribed By <span>*</span></h4>
+                <SELECT name="doctorname" id="doctorname" style="font-family:verdana">
                     <option value="NULL">NULL</option>
-                    {% for j in testlist %}
-                    <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                    {% for j in doctornamelist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
                     {% endfor %}
                 </SELECT>
                 <br>
-                <SELECT name="test3" id="test3" style="font-family:verdana">
-                    <option value="NULL">NULL</option>
-                    {% for j in testlist %}
-                    <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
-                    {% endfor %}
-                </SELECT>
-                <br>
-                <SELECT name="test4" id="test4" style="font-family:verdana">
-                    <option value="NULL">NULL</option>
-                    {% for j in testlist %}
-                    <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
-                    {% endfor %}
-                </SELECT>
-            </div>
+
+        </div>
+    </div>
+
+
+        <h1 style="text-align: center;">SELECT TESTS</h1>
+        <div class="mb-3" style="margin: 20px; text-align: center;"><br>
+            <!-- <p>Test 1 </p> -->
+            <h6>Test 1</h6>
+            <SELECT name="test1" id="test1" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+            <br>
+            <!-- <p>Test 2 </p> -->
+            <h6>Test 2</h6>
+            <SELECT name="test2" id="test2" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+            <br>
+            <!-- <p>Test 3 </p> -->
+            <h6>Test 3</h6>
+            <SELECT name="test3" id="test3" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+            <br>
+            <!-- <p>Test 4 </p> -->
+            <h6>Test 4</h6>
+            <SELECT name="test4" id="test4" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+        </div>
 
 
 
-            <div class="submitbtn" style="text-align: center;">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+        <div class="submitbtn" style="text-align: center;">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
 
-        </form>
+    </form>
 
 </body>
 

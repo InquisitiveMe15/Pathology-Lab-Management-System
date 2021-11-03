@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Test</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='editTest.css')}}">
+    <title>Doctors</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='doctor.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,68 +55,105 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">| About</a>
                     </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    <h1 class="heading">Edit Test</h1>
+    <h1 class="heading">Our Hard Working Doctors</h1>
+    <!-- <div class="greet">
+    <p>WELCOME!</p>
+  </div> -->
 
-    <div id="sendmessage">
-        <div>{{ warning }}</div>
+    <table border=3>
+        <tr>
+            <th>Doctor ID</th>
+            <th>Doctor Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+
+        </tr>
+
+        {% for i in range(length) %}
+        <tr>
+            {% for j in range(4) %}
+            <td>{{ result[j][i] }}</td>
+            {% endfor %}
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="add">
+        <a href="{{url_for('addDoctorPage')}}">ADD</a>
     </div>
 
-    <div class="contentform">
-        <form method="POST" action="{{ url_for('EditTest') }}" id="form" class="form">
-            <h1>Do you have any questions? please do not hesitate to <a href="#">contact us!</a> 🙂</h1>
-
-            <div class="row">
-
-                <div class="form-group">
-                    <p>Name <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-user"></i></span>
-                    <input type="text" name="testName" id="testName" data-rule="required" />
-                </div>
-
-                <div class="form-group">
-                    <p>ID <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-                    <input type="text" name="testId" id="testId" data-rule="required" />
-                </div>
-
-                <div class="form-group">
-                    <p>Price <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-home"></i></span>
-                    <input type="text" name="price" id="price" data-rule="required" />
-                </div>
-
-
-            </div>
-
-            <!-- <div class="rightcontact">
-
-                <div class="form-group">
-                    <p>Address <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-building-o"></i></span>
-                    <input type="text" name="address" id="address" data-rule="required" />
-                </div>
-
-                <div class="form-group">
-                    <p>Mobile number <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-phone"></i></span>
-                    <input type="text" name="mobileNumber" id="mobileNumber" data-rule="maxlen:10" />
-                </div>
-
-                <div class="form-group">
-                    <p>E-mail <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
-                    <input type="email" name="email" id="email" data-rule="email" />
-                </div>
-            </div> -->
-
-            <button type="submit" class="button-contact">Submit</button>
+    <div class="edit">
+        <a href="{{url_for('editDoctorPage')}}">EDIT</a>
     </div>
-    </form>
+
+
+    <!-- <div id="sendmessage">
+    <div>{{ warning }}</div>
+  </div>
+
+  <div class="contentform">
+    <form method="POST" action="{{ url_for('AddPatient')}}" id="form" class="form">
+      <h1>Do you have any questions? please do not hesitate to <a href="#">contact us!</a> 🙂</h1>
+
+      <div class="leftcontact">
+
+        <div class="form-group">
+          <p>Name <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-user"></i></span>
+          <input type="text" name="name" id="name" data-rule="required" />
+        </div>
+
+        <div class="form-group">
+          <p>ID <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-map-marker"></i></span>
+          <input type="text" name="patientId" id="patientId" data-rule="required" />
+        </div>
+
+        <div class="form-group">
+          <p>Gender <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-home"></i></span>
+          <input type="text" name="gender" id="gender" data-rule="required" />
+        </div>
+
+        <div class="form-group">
+          <p>Age <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-location-arrow"></i></span>
+          <input type="text" name="age" id="age" data-rule="required" />
+        </div>
+
+      </div>
+
+      <div class="rightcontact">
+
+        <div class="form-group">
+          <p>Address <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-building-o"></i></span>
+          <input type="text" name="address" id="address" data-rule="required" />
+        </div>
+
+        <div class="form-group">
+          <p>Mobile number <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-phone"></i></span>
+          <input type="text" name="mobileNumber" id="mobileNumber" data-rule="maxlen:10" />
+        </div>
+
+        <div class="form-group">
+          <p>E-mail <span>*</span></p>
+          <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
+          <input type="email" name="email" id="email" data-rule="email" />
+        </div>
+      </div>
+
+      <button type="submit" class="button-contact">Submit</button>
+  </div>
+  </form> -->
 
 </body>
 

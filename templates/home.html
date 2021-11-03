@@ -23,7 +23,7 @@
         $.ajax({
           url: "/ajaxlivesearch",
           method: "POST",
-          data: { sendData: txt },
+          data: { query: txt },
           success: function (data) {
             $('#result').html(data);
             $("#result").append(data.htmlresponse);
@@ -58,10 +58,17 @@
             <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('DoctorPage') }}">| Doctors</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
+          </li>
+          <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('equipmentPage')}}">| Equipments</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
@@ -71,9 +78,6 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">| About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">| Contact Us</a>
           </li>
         </ul>
       </div>

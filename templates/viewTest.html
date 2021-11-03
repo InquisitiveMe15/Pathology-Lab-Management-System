@@ -16,10 +16,10 @@
     id="bootstrap-css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  </head>
+</head>
 
-  <body>
-       <!-- navbar -->
+<body>
+  <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{ url_for('home') }}">Pathology Lab</a>
@@ -33,10 +33,16 @@
             <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('DoctorPage') }}">| Doctors</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('equipmentPage')}}">| Equipments</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
@@ -47,9 +53,6 @@
           <li class="nav-item">
             <a class="nav-link" href="#">| About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">| Contact Us</a>
-          </li>
         </ul>
       </div>
     </div>
@@ -57,26 +60,26 @@
 
   <h1>Available Tests</h1>
 
-    <table border=3>
-        <tr>
-            <th>Test ID</th>
-            <th>Test Name</th>
-            <th>Price(in rupees)</th>
-            
-        </tr>
+  <table border=3>
+    <tr>
+      <th>Test ID</th>
+      <th>Test Name</th>
+      <th>Price(in rupees)</th>
 
-        {% for i in range(length) %}
-        <tr>
-            {% for j in range(3) %}
-            <td>{{ result[j][i] }}</td>
-            {% endfor %}
-            
-        </tr>
-        {% endfor %}
-    </table>
+    </tr>
 
-    <div class="edit">
-        <a href="{{url_for('editTestPage')}}">EDIT</a>
-    </div>
-    
-  </body>
+    {% for i in range(length) %}
+    <tr>
+      {% for j in range(3) %}
+      <td>{{ result[j][i] }}</td>
+      {% endfor %}
+
+    </tr>
+    {% endfor %}
+  </table>
+
+  <div class="edit">
+    <a href="{{url_for('editTestPage')}}">EDIT</a>
+  </div>
+
+</body>
