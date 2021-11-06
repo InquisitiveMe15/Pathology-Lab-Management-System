@@ -31,8 +31,17 @@
     font-size:3rem;
     text-align: center;
   }
+
+  .alert{
+    text-align: center;
+    color: red;
+  }
+
   table{
     margin: 20px auto 150px auto;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 0.5%;
     border-collapse: collapse;
     border: 2px solid #b638ff;
   }
