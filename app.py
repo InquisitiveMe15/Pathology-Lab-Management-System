@@ -22,7 +22,7 @@ def verification():
 @app.route('/login', methods = ['POST'])
 def login():
     password = request.form['pwd']
-    if password == 'dn36fg36fg3':
+    if password == 'project':
         return render_template("home.html")
     else:
         return render_template("login.html", messg = 0)
@@ -41,14 +41,14 @@ def addPatientPage():
 def addDoctorPage():
     return render_template("adddoctor.html")
 
-@app.route('/editPatientPage')
-def editPatientPage():
-    return render_template('editpatient.html')
+@app.route('/editPatientPage/<string:patientId>')
+def editPatientPage(patientId):
+    return render_template('editpatient.html', patientId = patientId)
     return("Working")
 
-@app.route('/editDoctorPage')
-def editDoctorPage():
-    return render_template("editdoctor.html")
+@app.route('/editDoctorPage/<string:doctorId>')
+def editDoctorPage(doctorId):
+    return render_template("editdoctor.html", doctorId = doctorId)
 
 
 @app.route('/addTestPage')
@@ -56,9 +56,9 @@ def addTestPage():
     return render_template("addtest.html")
 
 
-@app.route('/editTestPage')
-def editTestPage():
-    return render_template("editTest.html")
+@app.route('/editTestPage/<string:testId>')
+def editTestPage(testId):
+    return render_template("editTest.html", testId = testId)
 
 
 @app.route('/addEquipmentPage')
@@ -66,9 +66,9 @@ def addEquipmentPage():
     return render_template("addequipment.html")
 
 
-@app.route('/editEquipmentPage')
-def editEquipmentPage():
-    return render_template("editequipment.html")
+@app.route('/editEquipmentPage/<string:equipmentId>')
+def editEquipmentPage(equipmentId):
+    return render_template("editequipment.html", equipmentId = equipmentId)
 
 
 
@@ -304,6 +304,17 @@ def equipmentPage():
     result.append(equipmentName)
     result.append(price)
     result.append(instock)
+
+    #if any equipment has its left quantity less than 20 then a warning will be shown
+    alert_names=[]
+    index=0
+    for number in instock:
+        if number < 20:
+            alert_names.append(equipmentName[index])
+        index=index+1
+    if len(alert_names)!=0:
+        return render_template("equipment.html", result=result, length=length, alert_names = alert_names)
+
     return render_template("equipment.html", result=result, length=length)
     return("working")
 
@@ -490,9 +501,14 @@ def makebill():
         test4 = request.form['test4']
         if(test4 != "NULL"):
             alltest.append(test4)
-        # print(test1)
-        # print(test2)
-        if patientname == 'NULL' or patientId == 'NULL' or doctorname == 'NULL':
+        query_string = "SELECT name FROM patient WHERE patientId='{}'".format(patientId)
+        cursor.execute(query_string)
+        real_name = cursor.fetchone()
+        print(real_name[0])
+        if real_name[0] != patientname:
+            warning = "Name and Id doesn't match with the registered values. Fill correct details."
+        
+        elif patientname == 'NULL' or patientId == 'NULL' or doctorname == 'NULL':
             warning = 'Please fill all the required details first !'
         
         elif len(alltest)==0:
@@ -536,4 +552,30 @@ def makebill():
             result.append(alltestprice)
             return render_template("bill.html", result=result, length=length, total=total, patientname=patientname, patientemail=patientemail, doctorname = doctorname)
         return render_template("placeorder.html", warning = warning, testlist=testlist, patientnamelist=patientnamelist, patientidlist=patientidlist, doctornamelist = doctornamelist)
-    return("working")
+    return("Error.")
+
+
+@app.route('/deleteEquipment/<string:equipmentId>')
+def deleteEquipment(equipmentId):
+    query_string = "DELETE FROM equipments WHERE id='{}'".format(equipmentId)
+    cursor.execute(query_string)
+    conn.commit()
+    return redirect(('/equipmentPage'))
+
+
+@app.route('/deleteTest/<string:testId>')
+def deleteTest(testId):
+    query_string = "DELETE FROM test WHERE testId='{}'".format(testId)
+    cursor.execute(query_string)
+    conn.commit()
+    return redirect(('/viewTestPage'))
+
+
+@app.route('/deleteDoctor/<string:doctorId>')
+def deleteDoctor(doctorId):
+    query_string = "DELETE FROM doctor WHERE id='{}'".format(doctorId)
+    cursor.execute(query_string)
+    conn.commit()
+    return redirect(('/DoctorPage'))
+
+
