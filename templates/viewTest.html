@@ -65,6 +65,8 @@
       <th>Test ID</th>
       <th>Test Name</th>
       <th>Price(in rupees)</th>
+      <th>Edit</th>
+      <th>Delete</th>
 
     </tr>
 
@@ -73,13 +75,13 @@
       {% for j in range(3) %}
       <td>{{ result[j][i] }}</td>
       {% endfor %}
+      <td><a href="{{ url_for('editTestPage', testId = result[0][i]) }}">EDIT</a></td>
+      <td><a href="{{ url_for('deleteTest', testId = result[0][i]) }}">DELETE</a></td>
 
     </tr>
     {% endfor %}
   </table>
 
-  <div class="edit">
-    <a href="{{url_for('editTestPage')}}">EDIT</a>
-  </div>
+  
 
 </body>

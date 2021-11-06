@@ -62,6 +62,12 @@
     </nav>
 
     <h1 class="heading">Equipments</h1>
+    <div class="alert">
+        <h3>Equipments whose quantity left is below 20 : </h3>
+        {% for i in alert_names %}
+        {{ i }},
+        {% endfor %}
+    </div>
 
     <table border=3>
         <tr>
@@ -69,6 +75,8 @@
             <th>Equipment Name</th>
             <th>Price</th>
             <th>In Stock</th>
+            <th>Edit</th>
+            <th>Delete</th>
 
         </tr>
 
@@ -77,6 +85,8 @@
             {% for j in range(4) %}
             <td>{{ result[j][i] }}</td>
             {% endfor %}
+            <td><a href="{{ url_for('editEquipmentPage', equipmentId = result[0][i]) }}">EDIT</a></td>
+            <td><a href="{{ url_for('deleteEquipment', equipmentId = result[0][i]) }}">DELETE</a></td>
 
         </tr>
         {% endfor %}
@@ -86,9 +96,7 @@
         <a href="{{url_for('addEquipmentPage')}}">ADD</a>
     </div>
 
-    <div class="edit">
-        <a href="{{url_for('editEquipmentPage')}}">EDIT</a>
-    </div>
+    
 
 
    

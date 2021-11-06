@@ -72,6 +72,8 @@
             <th>Doctor Name</th>
             <th>Email</th>
             <th>Mobile Number</th>
+            <th>Edit</th>
+            <th>Delete</th>
 
         </tr>
 
@@ -80,6 +82,8 @@
             {% for j in range(4) %}
             <td>{{ result[j][i] }}</td>
             {% endfor %}
+            <td><a href="{{ url_for('editDoctorPage', doctorId = result[0][i]) }}">EDIT</a></td>
+            <td><a href="{{ url_for('deleteDoctor', doctorId = result[0][i]) }}">DELETE</a></td>
 
         </tr>
         {% endfor %}
@@ -89,9 +93,6 @@
         <a href="{{url_for('addDoctorPage')}}">ADD</a>
     </div>
 
-    <div class="edit">
-        <a href="{{url_for('editDoctorPage')}}">EDIT</a>
-    </div>
 
 
     <!-- <div id="sendmessage">
