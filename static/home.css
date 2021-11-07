@@ -26,6 +26,11 @@ body{
     font-size: large;
     font-weight: 700;
   }
+  .Navbar{
+    position: sticky;
+    top: 0px;
+    z-index:2;
+}
   .card{
     flex:1;
     display:flex;
@@ -120,4 +125,32 @@ body{
 }
 .containing{
   margin-bottom: 2cm;
+}
+.sixth{
+  text-align: center;
+  padding: 4%;
+  background-color: #CAB8FF;
+}
+.sixth h2{
+  margin-bottom: 40px;
+}
+.sixth p{
+  margin-bottom: 4px;
+}
+.sixth a{
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+.sixth a:hover{
+  color: rgb(146, 70, 218);
+  text-decoration: none;
+}
+.fab{
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 30px;
+  color: black;
+}
+.fab:hover{
+  color: blueviolet;
 }

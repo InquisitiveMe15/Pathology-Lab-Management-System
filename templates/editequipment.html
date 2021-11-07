@@ -22,43 +22,47 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('home') }}">Pathology Lab</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('DoctorPage') }}">| Doctors</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('equipmentPage')}}">| Equipments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('placeOrderPage') }}">| Place Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">| About</a>
-                    </li>
-                </ul>
+    <div class="Navbar">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('home') }}"><img src="static/photos/logo.png" alt=".."
+                        width="45" height="35" class="d-inline-block align-text-top"> G1 Pathology Lab</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('DoctorPage') }}">| Doctors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('equipmentPage')}}">| Equipments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('placeOrderPage') }}">| Place Order</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('about') }}">| About</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <h1 class="heading">Equipment Details</h1>
 
@@ -68,7 +72,8 @@
 
     <div class="contentform">
         <form method="POST" action="{{ url_for('EditEquipment') }}" id="form" class="form">
-            <h1>Do you have any questions? please do not hesitate to <a href="#">contact us!</a> 🙂</h1>
+            <h1>Do you have any questions? please do not hesitate to <a href="{{ url_for('about') }}">contact us!</a> 🙂
+            </h1>
             <div class="row">
 
                 <div class="form-group">
@@ -80,7 +85,8 @@
                 <div class="form-group">
                     <p>ID <span>*</span></p>
                     <span class="icon-case"><i class="fa fa-map-marker"></i></span>
-                    <input type="text" name="equipmentId" id="equipmentId" data-rule="required" value="{{ equipmentId }}" />
+                    <input type="text" name="equipmentId" id="equipmentId" data-rule="required"
+                        value="{{ equipmentId }}" />
                 </div>
 
                 <div class="form-group">

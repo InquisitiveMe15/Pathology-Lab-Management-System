@@ -23,6 +23,11 @@ body {
     font-size: large;
     font-weight: 700;
   }
+  .Navbar{
+    position: sticky;
+    top: 0px;
+    z-index:2;
+}
   
   .greet p {
     font-size: 30px;

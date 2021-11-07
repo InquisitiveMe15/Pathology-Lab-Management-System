@@ -24,6 +24,11 @@ body {
     font-weight: 700;
   }
   
+  .Navbar{
+    position: sticky;
+    top: 0px;
+    z-index:2;
+}
   
   form h1 {
     font-size: 18px;

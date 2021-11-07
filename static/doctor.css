@@ -18,6 +18,11 @@
     font-size: large;
     font-weight: 700;
   }
+  .Navbar{
+    position: sticky;
+    top: 0px;
+    z-index:2;
+}
 
   body {
     text-align:center;

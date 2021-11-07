@@ -14,6 +14,8 @@
     rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
     id="bootstrap-css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/9daeb8e3e3.js" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
@@ -45,9 +47,11 @@
 <body>
 
   <!-- navbar -->
+  <div class="Navbar">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{{ url_for('home') }}">Pathology Lab</a>
+      <a class="navbar-brand" href="{{ url_for('home') }}"><img src="static/photos/logo.png" alt=".." width="45"
+          height="35" class="d-inline-block align-text-top"> G1 Pathology Lab</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -77,12 +81,13 @@
             <a class="nav-link" href="{{ url_for('placeOrderPage') }}">| Place Order</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">| About</a>
+            <a class="nav-link" href="{{ url_for('about') }}">| About</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+</div>
 
   <!-- searchbar -->
   <!-- <form class="d-flex">
@@ -136,17 +141,25 @@
     </div>
   </div>
 
-  <div class="about">
-    <p>We focus on providing patients quality diagnostic healthcare services in India. Through our network, we offer
-      patients convenient locations for their diagnostic healthcare services and efficient service. With over 5000+
-      diagnostic and related healthcare tests and services offered, we believe we are capable of performing
-      substantially all of the diagnostic healthcare tests and services currently prescribed by physicians in India.</p>
-  </div>
+
   <!-- footer -->
-  <div class="footer">
+  <!-- <div class="footer">
     <p class="p1">Contact us at: +91-838323862</p>
     <p class="p2">@pathology.management</p>
-  </div>
+  </div> -->
+  <div class="sixth">
+    <h2>CONTACT US</h2>
+    <p>1 N. Cactus Ave., WI 54302</p>
+    <a href="#">+91-838323862</a><br>
+    <a href="#">@pathology.management</a><br>
+    <a href="#"><i class="fab fa-facebook-square"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram-square"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+
+
+</div>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

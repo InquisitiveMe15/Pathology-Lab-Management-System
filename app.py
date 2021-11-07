@@ -579,3 +579,6 @@ def deleteDoctor(doctorId):
     return redirect(('/DoctorPage'))
 
 
+@app.route('/about')
+def about():
+    return render_template("about.html")

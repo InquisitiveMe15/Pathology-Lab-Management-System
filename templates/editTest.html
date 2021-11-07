@@ -22,9 +22,11 @@
 
 <body>
     <!-- navbar -->
+    <div class="Navbar">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('home') }}">Pathology Lab</a>
+            <a class="navbar-brand" href="{{ url_for('home') }}"><img src="static/photos/logo.png" alt=".."
+                width="45" height="35" class="d-inline-block align-text-top"> G1 Pathology Lab</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -53,12 +55,13 @@
                         <a class="nav-link" href="{{ url_for('placeOrderPage') }}">| Place Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">| About</a>
+                        <a class="nav-link" href="{{ url_for('about') }}">| About</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+</div>
 
     <h1 class="heading">Edit Test</h1>
 
@@ -68,7 +71,7 @@
 
     <div class="contentform">
         <form method="POST" action="{{ url_for('EditTest') }}" id="form" class="form">
-            <h1>Do you have any questions? please do not hesitate to <a href="#">contact us!</a> 🙂</h1>
+            <h1>Do you have any questions? please do not hesitate to <a href="{{ url_for('about') }}">contact us!</a> 🙂</h1>
 
             <div class="row">
 
