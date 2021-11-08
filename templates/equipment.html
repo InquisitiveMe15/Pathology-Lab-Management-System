@@ -100,7 +100,7 @@
             {% for j in range(4) %}
             <td>{{ result[j][i] }}</td>
             {% endfor %}
-            <td><a href="{{ url_for('editEquipmentPage', equipmentId = result[0][i]) }}">EDIT</a></td>
+            <td><a href="{{ url_for('editEquipmentPage', equipmentId = result[0][i], equipmentName = result[1][i], price = result[2][i], instock = result[3][i] )}}">EDIT</a></td>
             <td><a href="{{ url_for('deleteEquipment', equipmentId = result[0][i]) }}" onclick="return confirmation()">DELETE</a></td>
 
         </tr>

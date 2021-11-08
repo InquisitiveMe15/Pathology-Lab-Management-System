@@ -89,7 +89,7 @@
       {% for j in range(3) %}
       <td>{{ result[j][i] }}</td>
       {% endfor %}
-      <td><a href="{{ url_for('editTestPage', testId = result[0][i]) }}">EDIT</a></td>
+      <td><a href="{{ url_for('editTestPage', testId = result[0][i], testName = result[1][i], price = result[2][i] )}}">EDIT</a></td>
       <td><a href="{{ url_for('deleteTest', testId = result[0][i]) }}" onclick="return confirmation()">DELETE</a></td>
 
     </tr>

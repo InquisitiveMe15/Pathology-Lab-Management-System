@@ -41,14 +41,14 @@ def addPatientPage():
 def addDoctorPage():
     return render_template("adddoctor.html")
 
-@app.route('/editPatientPage/<string:patientId>')
-def editPatientPage(patientId):
-    return render_template('editpatient.html', patientId = patientId)
+@app.route('/editPatientPage/<string:patientId>/<string:name>/<string:gender>/<string:age>/<string:mobileNumber>/<string:email>/<string:address>')
+def editPatientPage(patientId,name,gender,age,mobileNumber,email,address):
+    return render_template('editpatient.html', patientId = patientId, name = name, gender = gender, age = age, mobileNumber = mobileNumber, email = email, address = address)
     return("Working")
 
-@app.route('/editDoctorPage/<string:doctorId>')
-def editDoctorPage(doctorId):
-    return render_template("editdoctor.html", doctorId = doctorId)
+@app.route('/editDoctorPage/<string:doctorName>/<string:doctorId>/<string:email>/<string:mobileNumber>')
+def editDoctorPage(doctorName,doctorId,email,mobileNumber):
+    return render_template("editdoctor.html", doctorName = doctorName, doctorId = doctorId, email = email, mobileNumber = mobileNumber)
 
 
 @app.route('/addTestPage')
@@ -56,9 +56,9 @@ def addTestPage():
     return render_template("addtest.html")
 
 
-@app.route('/editTestPage/<string:testId>')
-def editTestPage(testId):
-    return render_template("editTest.html", testId = testId)
+@app.route('/editTestPage/<string:testId>/<string:testName>/<string:price>')
+def editTestPage(testId,testName,price):
+    return render_template("editTest.html", testId = testId, testName = testName, price = price)
 
 
 @app.route('/addEquipmentPage')
@@ -66,9 +66,9 @@ def addEquipmentPage():
     return render_template("addequipment.html")
 
 
-@app.route('/editEquipmentPage/<string:equipmentId>')
-def editEquipmentPage(equipmentId):
-    return render_template("editequipment.html", equipmentId = equipmentId)
+@app.route('/editEquipmentPage/<string:equipmentId>/<string:equipmentName>/<string:price>/<string:instock>')
+def editEquipmentPage(equipmentId,equipmentName,price,instock):
+    return render_template("editequipment.html", equipmentId = equipmentId, equipmentName = equipmentName, price = price, instock = instock)
 
 
 
@@ -504,13 +504,13 @@ def makebill():
         query_string = "SELECT name FROM patient WHERE patientId='{}'".format(patientId)
         cursor.execute(query_string)
         real_name = cursor.fetchone()
-        print(real_name[0])
-        if real_name[0] != patientname:
-            warning = "Name and Id doesn't match with the registered values. Fill correct details."
+        # print(real_name[0])
         
-        elif patientname == 'NULL' or patientId == 'NULL' or doctorname == 'NULL':
+        if patientname == 'NULL' or patientId == 'NULL' or doctorname == 'NULL':
             warning = 'Please fill all the required details first !'
         
+        elif real_name[0] != patientname:
+            warning = "Name and Id doesn't match with the registered values. Fill correct details."
         elif len(alltest)==0:
             warning = 'Please select atleast one test.'
         else:
