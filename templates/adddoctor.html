@@ -18,6 +18,17 @@
         id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function confirmation() {
+          var res = confirm("Are you sure you want to add this entry?");
+    
+          if (res)
+            return true;
+          else
+            return false;
+        }
+      </script>
+    
 </head>
 
 <body>
@@ -25,7 +36,7 @@
     <div class="Navbar">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('home') }}"><img src="static/photos/logo.png" alt=".."
+            <a class="navbar-brand" href="{{ url_for('home') }}"><img src="/static/photos/logo.png" alt=".."
                 width="45" height="35" class="d-inline-block align-text-top"> G1 Pathology Lab</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +81,7 @@
     </div>
 
     <div class="contentform">
-        <form method="POST" action="{{ url_for('AddDoctor')}}" id="form" class="form">
+        <form method="POST" action="{{ url_for('AddDoctor')}}" id="form" class="form" onsubmit="return confirmation();">
             <h1>Do you have any questions? please do not hesitate to <a href="{{ url_for('about') }}">contact us!</a> 🙂</h1>
 
             <div class="row">
@@ -102,26 +113,7 @@
 
             </div>
 
-            <!-- <div class="rightcontact">
-
-                <div class="form-group">
-                    <p>Address <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-building-o"></i></span>
-                    <input type="text" name="address" id="address" data-rule="required" />
-                </div>
-
-                <div class="form-group">
-                    <p>Mobile number <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-phone"></i></span>
-                    <input type="text" name="mobileNumber" id="mobileNumber" data-rule="maxlen:10" />
-                </div>
-
-                <div class="form-group">
-                    <p>E-mail <span>*</span></p>
-                    <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
-                    <input type="email" name="email" id="email" data-rule="email" />
-                </div>
-            </div> -->
+            
 
             <button type="submit" class="button-contact">Submit</button>
     </div>

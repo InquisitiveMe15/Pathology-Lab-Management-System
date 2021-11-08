@@ -18,6 +18,16 @@
         id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function confirmation() {
+          var res = confirm("Are you sure you want to edit this entry?");
+    
+          if (res)
+            return true;
+          else
+            return false;
+        }
+      </script>
 </head>
 
 <body>
@@ -71,7 +81,7 @@
     </div>
 
     <div class="contentform">
-        <form method="POST" action="{{ url_for('EditEquipment') }}" id="form" class="form">
+        <form method="POST" action="{{ url_for('EditEquipment') }}" id="form" class="form" onsubmit="return confirmation();">
             <h1>Do you have any questions? please do not hesitate to <a href="{{ url_for('about') }}">contact us!</a> 🙂
             </h1>
             <div class="row">
