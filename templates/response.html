@@ -34,7 +34,7 @@
       <td>{{row[4]}}</td>
       <td>{{row[5]}}</td>
       <td>{{row[6]}}</td>
-      <td><a href="#">VIEW</a></td>
-      <td><a href="{{ url_for('editPatientPage', patientId = row[0], name = row[1], gender = row[2], age = row[0], mobileNumber = row[4], email = row[5], address = row[6] )}}">EDIT</a></td>
+      <td><a href="{{ url_for('profile', patientId = row[0], name = row[1], gender = row[2], age = row[3], mobileNumber = row[4], email = row[5], address = row[6] )}}">VIEW</a></td>
+      <td><a href="{{ url_for('editPatientPage', patientId = row[0], name = row[1], gender = row[2], age = row[3], mobileNumber = row[4], email = row[5], address = row[6] )}}">EDIT</a></td>
     </tr>
     {% endfor %}
