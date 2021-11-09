@@ -85,6 +85,10 @@
         style="border: 5px solid rgb(131, 121, 167); border-radius: 10px; padding: 2%;">
     <div style="text-align: center; margin-bottom: 15px;">
         <div style="margin: 5px;">
+            <h1>OrderID: {{totalorder}}</h1>
+            <h4>OrderID : <span>*</span></h4>
+            <input type="text" name="orderId" id="orderId" data-rule="required" />
+                <br>
             <h4>Patient name : <span>*</span></h4>
                 <SELECT name="patientname" id="patientname" style="font-family:verdana">
                     <option value="NULL">NULL</option>
@@ -113,6 +117,17 @@
                 <SELECT name="doctorname" id="doctorname" style="font-family:verdana">
                     <option value="NULL">NULL</option>
                     {% for j in doctornamelist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
+                    {% endfor %}
+                </SELECT>
+                <br>
+
+        </div>
+        <div style="margin: 5px;">
+            <h4>Doctor ID : <span>*</span></h4>
+                <SELECT name="doctorId" id="doctorId" style="font-family:verdana">
+                    <option value="NULL">NULL</option>
+                    {% for j in doctoridlist %}
                     <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
                     {% endfor %}
                 </SELECT>

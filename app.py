@@ -1,14 +1,14 @@
 from flask import Flask, session, render_template, request, make_response, redirect, flash, jsonify
 # from flask_mysql import MySQL
 from flaskext.mysql import MySQL
-
+from datetime import date
 
 app = Flask(__name__)
 mysql = MySQL()
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'kanchi123456@'
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -82,6 +82,9 @@ cursor.execute('SELECT patientId FROM patient')
 patientidlist = cursor.fetchall()
 cursor.execute('SELECT name FROM doctor')
 doctornamelist = cursor.fetchall()
+cursor.execute('SELECT id FROM doctor')
+doctoridlist = cursor.fetchall()
+
 
 
 
@@ -96,8 +99,11 @@ def placeOrderPage():
     # patientidlist = cursor.fetchall()
     # cursor.execute('SELECT name FROM doctor')
     # doctornamelist = cursor.fetchall()
-
-    return render_template("placeorder.html", testlist=testlist, patientnamelist=patientnamelist, patientidlist=patientidlist, doctornamelist = doctornamelist)
+    cursor.execute('SELECT orderId FROM order1')
+    orderlist=cursor.fetchall()
+    totalorder=cursor.rowcount
+    totalorder=totalorder+1
+    return render_template("placeorder.html", testlist=testlist, patientnamelist=patientnamelist, patientidlist=patientidlist, doctornamelist = doctornamelist,totalorder=totalorder,doctoridlist=doctoridlist)
     return("Working")
 
 
@@ -485,8 +491,10 @@ def EditEquipment():
 def makebill():
     if request.method == 'POST' and 'patientname' in request.form and 'patientId' in request.form and 'doctorname' in request.form and 'test1' in request.form and 'test2' in request.form and 'test3' in request.form and 'test4' in request.form:
         warning = ''
+        orderId=request.form['orderId']
         patientname = request.form['patientname']
         patientId = request.form['patientId']
+        doctorId = request.form['doctorId']
         doctorname = request.form['doctorname']
         alltest = []
         test1 = request.form['test1']
@@ -506,7 +514,7 @@ def makebill():
         real_name = cursor.fetchone()
         # print(real_name[0])
         
-        if patientname == 'NULL' or patientId == 'NULL' or doctorname == 'NULL':
+        if patientname == 'NULL' or patientId == 'NULL' or doctorname == 'NULL'or doctorId=='NULL':
             warning = 'Please fill all the required details first !'
         
         elif real_name[0] != patientname:
@@ -532,11 +540,11 @@ def makebill():
                     alltestid.append(row[0])
                     row = cursor.fetchone()
             print(alltestid)
+            
 
             alltestprice = []
             for name in alltest:
-                query_string = (
-                    "SELECT price FROM test WHERE testName='{}'".format(name))
+                query_string = "SELECT price FROM test WHERE testName='{}'".format(name)
                 cursor.execute(query_string)
                 row = cursor.fetchone()
                 while(row != None):
@@ -550,6 +558,16 @@ def makebill():
             result.append(alltestid)
             result.append(alltest)
             result.append(alltestprice)
+            date1=date.today()
+        
+            cursor.execute('INSERT INTO order1 VALUES (%s,%s,%s,%s)',(orderId,date1,total,doctorId))
+            conn.commit()
+            cursor.execute('INSERT INTO givesorder VALUES (%s,%s)',(orderId,patientId))
+            conn.commit()
+            for i in range(len(alltestid)):
+                tID=alltestid[i]
+                cursor.execute('INSERT INTO contains VALUES (%s,%s)',(orderId,tID))
+                conn.commit()
             return render_template("bill.html", result=result, length=length, total=total, patientname=patientname, patientemail=patientemail, doctorname = doctorname)
         return render_template("placeorder.html", warning = warning, testlist=testlist, patientnamelist=patientnamelist, patientidlist=patientidlist, doctornamelist = doctornamelist)
     return("Error.")
@@ -582,3 +600,6 @@ def deleteDoctor(doctorId):
 @app.route('/about')
 def about():
     return render_template("about.html")
+
+if __name__ == '__main__':
+    app.run(debug=True)
