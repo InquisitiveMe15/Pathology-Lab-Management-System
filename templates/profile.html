@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static',filename='profile.css')}}">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static',filename='profile.css')}}">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
     id="bootstrap-css">
-    <title>Profile</title>
+  <title>Profile</title>
 </head>
+
 <body>
-    <!-- navbar -->
+  <!-- navbar -->
   <div class="Navbar">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
       <div class="container-fluid">
@@ -52,34 +54,35 @@
       </div>
     </nav>
   </div>
-<!-- ///////////////////////////////////////////////////////////////////// -->
-    <div class="container">
-        <div class="main-body">
-        <h1>Profile Page</h1>
-              <div class="row gutters-sm">
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <div class="container">
+    <div class="main-body">
+      <h1>Profile Page</h1>
+      <div class="row gutters-sm">
 
-                <div class="col-md-4 mb-3">
+        <div class="col-md-4 mb-3">
 
+          <div style="margin-top: 120px;">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <img src="/static/photos/logo.png" class="rounded-circle" height="200" width="150">
 
-                  <div class="card">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="card">
                     <div class="card-body">
                       <div class="d-flex flex-column align-items-center text-center">
                         <img src="/static/photos/logo.png" class="rounded-circle" height="200" width="150">
                         
                       </div>
                     </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex flex-column align-items-center text-center">
-                        <img src="/static/photos/logo.png" class="rounded-circle" height="200" width="150">
-                        
-                      </div>
-                    </div>
-                  </div>
+                  </div> -->
 
 
-                  <!-- <div class="card mt-3">
+          <!-- <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
@@ -104,94 +107,95 @@
                     </ul>
                   </div> -->
 
-                </div>
-
-
-                <div class="col-md-8">
-
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Patient ID</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ patientId }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Full Name</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ name }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Gender</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ gender }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Age</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ age }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Email</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ email }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Mobile Number</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ mobileNumber }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Address</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          {{ address }}
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <a class="btn btn-info " target="__blank" href="{{ url_for('editPatientPage', patientId = patientId, name = name, gender = gender, age = age, mobileNumber = mobileNumber, email = email, address = address )}}">Edit</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-    
-                  
-    
-                </div>
-              </div>
-    
-            </div>
         </div>
 
-        <h1 class="heading">Test History</h1>
-  
+
+        <div class="col-md-8">
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Patient ID</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ patientId }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ name }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Gender</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ gender }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Age</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ age }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ email }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Mobile Number</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ mobileNumber }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Address</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{ address }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a class="btn btn-info " target="__blank"
+                    href="{{ url_for('editPatientPage', patientId = patientId, name = name, gender = gender, age = age, mobileNumber = mobileNumber, email = email, address = address )}}">Edit</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h1 class="heading">Test History</h1>
+
 
   <table border=3>
     <tr>
@@ -212,4 +216,5 @@
   </table>
 
 </body>
+
 </html>

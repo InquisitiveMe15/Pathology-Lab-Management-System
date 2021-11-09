@@ -1,4 +1,5 @@
 from flask import Flask, session, render_template, request, make_response, redirect, flash, jsonify
+from flask.helpers import url_for
 # from flask_mysql import MySQL
 from flaskext.mysql import MySQL
 from datetime import date
@@ -17,9 +18,18 @@ conn = mysql.connect()
 cursor = conn.cursor()
 
 
+# cursor.execute('SELECT patientId FROM patient')
+# patientlist = cursor.fetchall()
+# totalpatient = cursor.rowcount
+# totalpatient = totalpatient+1
+
 @app.route('/')
 def verification():
-    return render_template("login.html", messg=1)
+    cursor.execute('SELECT patientId FROM patient')
+    patientlist = cursor.fetchall()
+    totalpatient = cursor.rowcount
+    totalpatient = totalpatient+1
+    return render_template("login.html", messg=1, totalpatient = totalpatient)
 
 
 @app.route('/login', methods=['POST'])
@@ -28,7 +38,158 @@ def login():
     if password == 'project':
         return render_template("home.html")
     else:
-        return render_template("login.html", messg=0)
+        cursor.execute('SELECT patientId FROM patient')
+        patientlist = cursor.fetchall()
+        totalpatient = cursor.rowcount
+        totalpatient = totalpatient+1
+        return render_template("login.html", messg=0, totalpatient = totalpatient)
+
+@app.route('/logout')
+def logout():
+    return redirect('/')
+
+
+@app.route('/patientlogin', methods =['GET', 'POST'])
+def patientlogin():
+    msg = ''
+    if request.method == 'POST' and 'patientId' in request.form and 'email' in request.form:
+        patientId = request.form['patientId']
+        email = request.form['email']
+        cursor.execute('SELECT * FROM patient WHERE patientId = % s AND email = % s', (patientId, email, ))
+        account = cursor.fetchone()
+        if account:
+            # session['loggedin'] = True
+            # session['userid'] = account['userid']
+            # session['username'] = account['username']
+            msg = 'Logged in successfully !'
+            return redirect(url_for('patientprofilepage', patientId = patientId))
+        else:
+            cursor.execute('SELECT patientId FROM patient')
+            patientlist = cursor.fetchall()
+            totalpatient = cursor.rowcount
+            totalpatient = totalpatient+1
+            msg = 'Incorrect Patient Id or email !'
+    return render_template('login.html', msg = msg, totalpatient = totalpatient)
+
+@app.route('/register')
+@app.route('/register', methods =['GET', 'POST'])
+def register():
+    warning = ''
+    cursor.execute('SELECT patientId FROM patient')
+    patientlist = cursor.fetchall()
+    totalpatient = cursor.rowcount
+    totalpatient = totalpatient+1
+    if request.method == 'POST' and 'patientId' in request.form and 'name' in request.form and 'gender' in request.form and 'age' in request.form and 'address' in request.form and 'mobileNumber' in request.form and 'email' in request.form:
+        patientId = request.form['patientId']
+        name = request.form['name']
+        gender = request.form['gender']
+        age = request.form['age']
+        address = request.form['address']
+        mobileNumber = request.form['mobileNumber']
+        email = request.form['email']
+        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM patient WHERE patientId = % s', (patientId, ))
+        patient = cursor.fetchone()
+        if patient:
+            warning = 'Account already exists !'
+        elif not patientId or not name or not gender or not age or not address or not mobileNumber or not email:
+            warning = 'Please fill all the required details first !'
+        else:
+            cursor.execute('INSERT INTO patient VALUES (%s, % s, % s, % s, %s, %s, %s)',
+                           (patientId, name, gender, age, mobileNumber, email, address))
+            conn.commit()
+            warning = 'Patient added successfully ! '
+            totalpatient = totalpatient+1
+    else:
+        warning = 'Please fill out the form !'
+    return render_template('login.html', warning = warning, totalpatient = totalpatient)
+
+@app.route('/patientprofilepage/<string:patientId>')
+def patientprofilepage(patientId):
+
+    query_string = "SELECT name FROM patient WHERE patientId = '{}'".format(patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchall()
+    name = row[0][0]
+    query_string = "SELECT gender FROM patient WHERE patientId =  '{}'".format(patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchall()
+    gender = row[0][0]
+    query_string = "SELECT age FROM patient WHERE patientId =  '{}'".format(patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchall()
+    age = row[0][0]
+    query_string = "SELECT mobileNumber FROM patient WHERE patientId =  '{}'".format(patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchall()
+    mobileNumber = row[0][0]
+    query_string = "SELECT email FROM patient WHERE patientId =  '{}'".format(patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchall()
+    email = row[0][0]
+    query_string = "SELECT address FROM patient WHERE patientId =  '{}'".format(patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchall()
+    address = row[0][0]
+    orderIds = []
+    query_string = "SELECT orderId FROM givesorder WHERE patientId = '{}'".format(
+        patientId)
+    cursor.execute(query_string)
+    row = cursor.fetchone()
+    while(row != None):
+        orderIds.append(row[0])
+        row = cursor.fetchone()
+    print(orderIds)
+    date = []
+    for id in orderIds:
+        query_string = (
+            "SELECT date FROM `order` WHERE orderId='{}'".format(id))
+        cursor.execute(query_string)
+        row = cursor.fetchone()
+        while(row != None):
+            date.append(row[0])
+            row = cursor.fetchone()
+    print(date)
+    amount = []
+    for id in orderIds:
+        query_string = (
+            "SELECT amount FROM `order` WHERE orderId='{}'".format(id))
+        cursor.execute(query_string)
+        row = cursor.fetchone()
+        while(row != None):
+            amount.append(row[0])
+            row = cursor.fetchone()
+    print(amount)
+
+    TestIDS = []
+    for id in orderIds:
+        testIds = []
+        query_string = (
+            "SELECT testId FROM contains WHERE orderId='{}'".format(id))
+        cursor.execute(query_string)
+        row = cursor.fetchone()
+        while(row != None):
+            testIds.append(row[0])
+            row = cursor.fetchone()
+        TestIDS.append(testIds)
+    print(TestIDS)
+    print(name)
+    print(patientId)
+    print(gender)
+    print(age)
+    print(mobileNumber)
+    print(email)
+    print(address)
+    result = []
+    length = len(orderIds)
+    result.append(orderIds)
+    result.append(date)
+    result.append(TestIDS)
+    result.append(amount)
+
+    return render_template("profile2.html", patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address, result = result, length = length, orderIds=orderIds, date=date, amount=amount, TestIDS=TestIDS)
+    return("Working")
+
 
 
 @app.route('/home')
@@ -38,12 +199,20 @@ def home():
 
 @app.route('/addPatientPage')
 def addPatientPage():
-    return render_template("addpatient.html")
+    cursor.execute('SELECT patientId FROM patient')
+    patientlist = cursor.fetchall()
+    totalpatient = cursor.rowcount
+    nextpatient = totalpatient+1
+    return render_template("addpatient.html", nextpatient = nextpatient)
 
 
 @app.route('/addDoctorPage')
 def addDoctorPage():
-    return render_template("adddoctor.html")
+    cursor.execute('SELECT id FROM doctor')
+    doctorlist = cursor.fetchall()
+    totaldoctor = cursor.rowcount
+    nextdoctor = totaldoctor+1
+    return render_template("adddoctor.html", nextdoctor = nextdoctor)
 
 
 @app.route('/editPatientPage/<string:patientId>/<string:name>/<string:gender>/<string:age>/<string:mobileNumber>/<string:email>/<string:address>')
@@ -69,7 +238,11 @@ def editTestPage(testId, testName, price):
 
 @app.route('/addEquipmentPage')
 def addEquipmentPage():
-    return render_template("addequipment.html")
+    cursor.execute('SELECT id FROM equipments')
+    equipmentlist = cursor.fetchall()
+    totalequipment = cursor.rowcount
+    nextequipment = totalequipment+1
+    return render_template("addequipment.html", nextequipment = nextequipment)
 
 
 @app.route('/editEquipmentPage/<string:equipmentId>/<string:equipmentName>/<string:price>/<string:instock>')
@@ -90,7 +263,7 @@ doctoridlist = cursor.fetchall()
 cursor.execute('SELECT orderId FROM `order`')
 orderlist = cursor.fetchall()
 totalorder = cursor.rowcount
-print(totalorder)
+# print(totalorder)
 totalorder = totalorder+1
 
 
@@ -107,6 +280,10 @@ def about():
 @app.route('/AddPatient', methods=['GET', 'POST'])
 def AddPatient():
     warning = ''
+    cursor.execute('SELECT patientId FROM patient')
+    patientlist = cursor.fetchall()
+    totalpatient = cursor.rowcount
+    nextpatient = totalpatient+1
     if request.method == 'POST' and 'patientId' in request.form and 'name' in request.form and 'gender' in request.form and 'age' in request.form and 'address' in request.form and 'mobileNumber' in request.form and 'email' in request.form:
         # print("YES")
         patientId = request.form['patientId']
@@ -127,13 +304,18 @@ def AddPatient():
             cursor.execute('INSERT INTO patient VALUES (%s, % s, % s, % s, %s, %s, %s)',
                            (patientId, name, gender, age, mobileNumber, email, address))
             conn.commit()
+            nextpatient = nextpatient + 1
             warning = 'Patient added successfully ! '
-    return render_template('addpatient.html', warning=warning)
+    return render_template('addpatient.html', warning=warning, nextpatient = nextpatient)
 
 
 @app.route('/AddDoctor', methods=['GET', 'POST'])
 def AddDoctor():
     warning = ''
+    cursor.execute('SELECT id FROM doctor')
+    doctorlist = cursor.fetchall()
+    totaldoctor = cursor.rowcount
+    nextdoctor = totaldoctor+1
     if request.method == 'POST' and 'doctorName' in request.form and 'doctorId' in request.form and 'email' in request.form and 'mobileNumber' in request.form:
         # print("YES")
         doctorName = request.form['doctorName']
@@ -151,13 +333,18 @@ def AddDoctor():
             cursor.execute('INSERT INTO doctor VALUES (%s, % s, % s, % s)',
                            (doctorId, doctorName, email, mobileNumber))
             conn.commit()
+            nextdoctor = nextdoctor + 1
             warning = 'Doctor added successfully ! '
-    return render_template('adddoctor.html', warning=warning)
+    return render_template('adddoctor.html', warning=warning, nextdoctor = nextdoctor)
 
 
 @app.route('/AddEquipment', methods=['GET', 'POST'])
 def AddEquipment():
     warning = ''
+    cursor.execute('SELECT id FROM equipments')
+    equipmentlist = cursor.fetchall()
+    totalequipment = cursor.rowcount
+    nextequipment = totalequipment+1
     if request.method == 'POST' and 'equipmentName' in request.form and 'equipmentId' in request.form and 'price' in request.form and 'instock' in request.form:
         # print("YES")
         equipmentName = request.form['equipmentName']
@@ -175,8 +362,9 @@ def AddEquipment():
             cursor.execute('INSERT INTO equipments VALUES (%s, % s, % s, % s)',
                            (equipmentId, equipmentName, price, instock))
             conn.commit()
+            nextequipment = nextequipment+1
             warning = 'Equipment added successfully ! '
-    return render_template('addequipment.html', warning=warning)
+    return render_template('addequipment.html', warning=warning, nextequipment = nextequipment)
 
 
 @app.route('/AddTest', methods=['GET', 'POST'])
