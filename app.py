@@ -3,14 +3,26 @@ from flask.helpers import url_for
 # from flask_mysql import MySQL
 from flaskext.mysql import MySQL
 from datetime import date
-
+from flask_mail import *
+from random import *
 
 app = Flask(__name__)
 mysql = MySQL()
+mail = Mail(app)
+
+app.config["MAIL_SERVER"]='smtp.gmail.com'
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USERNAME"] = 'khushiverma2902@gmail.com'
+app.config['MAIL_PASSWORD'] = 'gskdvi17'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+otp = randint(000000,999999)
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'KHU1*ver'
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -842,7 +854,7 @@ def profile(patientId, name, gender, age, mobileNumber, email, address):
             row = cursor.fetchone()
         TestIDS.append(testIds)
     print(TestIDS)
-    
+
     result = []
     length = len(orderIds)
     result.append(orderIds)
@@ -853,3 +865,30 @@ def profile(patientId, name, gender, age, mobileNumber, email, address):
     return render_template("profile.html", patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address, result = result, length = length, orderIds=orderIds, date=date, amount=amount, TestIDS=TestIDS)
 
     return("Working")
+
+@app.route('/otphomescreen')
+def otphomescreen():
+    return render_template('otphomescreen.html')
+
+@app.route('/otpverify',methods=['POST'])
+def otpverify():
+  if request.method =='POST':
+    email = request.form["email"]
+
+    msg = Message('OTP',sender = 'khushiverma2902@gmail.com', recipients = [email])
+    msg.body = str(otp)
+    mail.send(msg)
+    return render_template('otpverify.html')
+
+@app.route('/otpvalidate',methods=["POST"])
+def validate():
+  if request.method=='POST':
+    user_otp = request.form['otp']
+    if otp == int(user_otp):
+        return render_template("otpsuccessful.html")
+  return render_template("otpfailure.html")
+
+
+
+if __name__ == '__main__':
+    app.run(debug = True)
