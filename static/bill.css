@@ -29,7 +29,7 @@
     text-align:center;
     background-color: white;
   }
-
+  
   h1 {
     margin-top:20px;
     margin-bottom: 10px;
@@ -63,6 +63,7 @@
   tr:nth-child(odd) {
     background-color: #F0D9FF;
   }
+
   .paymentbtn{
     height: 30px;
     width: auto;
@@ -71,11 +72,20 @@
   }
   .paymentbtn a{
     text-decoration: none;
-    color:white;
+    color: rgb(97, 93, 93);
     font-size:20px;
   }
-
-
+  .sendpdfbtn{
+    height: 30px;
+    width: auto;
+    margin: 30px auto;
+    background-color: #F0D9FF;
+  }
+  .sendpdfbtn a{
+    text-decoration: none;
+    color: rgb(97, 93, 93);
+    font-size:20px;
+  }
   /* .edit a{
     font-size: 20px;
   }

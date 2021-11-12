@@ -6,23 +6,25 @@ from datetime import date
 from flask_mail import *
 from random import *
 
+
 app = Flask(__name__)
 mysql = MySQL()
+
 mail = Mail(app)
 
-app.config["MAIL_SERVER"]='smtp.gmail.com'
+app.config["MAIL_SERVER"] = 'smtp.gmail.com'
 app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = ''
-app.config['MAIL_PASSWORD'] = ''
+app.config["MAIL_USERNAME"] = 'nhjkhr.2021@gmail.com'
+app.config['MAIL_PASSWORD'] = 'trop@23M'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
-otp = randint(000000,999999)
+otp = randint(000000, 999999)
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -41,7 +43,7 @@ def verification():
     patientlist = cursor.fetchall()
     totalpatient = cursor.rowcount
     totalpatient = totalpatient+1
-    return render_template("login.html", messg=1, totalpatient = totalpatient)
+    return render_template("login.html", messg=1, totalpatient=totalpatient)
 
 
 @app.route('/login', methods=['POST'])
@@ -54,37 +56,40 @@ def login():
         patientlist = cursor.fetchall()
         totalpatient = cursor.rowcount
         totalpatient = totalpatient+1
-        return render_template("login.html", messg=0, totalpatient = totalpatient)
+        return render_template("login.html", messg=0, totalpatient=totalpatient)
+
 
 @app.route('/logout')
 def logout():
     return redirect('/')
 
 
-@app.route('/patientlogin', methods =['GET', 'POST'])
+@app.route('/patientlogin', methods=['GET', 'POST'])
 def patientlogin():
     msg = ''
     if request.method == 'POST' and 'patientId' in request.form and 'email' in request.form:
         patientId = request.form['patientId']
         email = request.form['email']
-        cursor.execute('SELECT * FROM patient WHERE patientId = % s AND email = % s', (patientId, email, ))
+        cursor.execute(
+            'SELECT * FROM patient WHERE patientId = % s AND email = % s', (patientId, email, ))
         account = cursor.fetchone()
         if account:
             # session['loggedin'] = True
             # session['userid'] = account['userid']
             # session['username'] = account['username']
             msg = 'Logged in successfully !'
-            return redirect(url_for('patientprofilepage', patientId = patientId))
+            return redirect(url_for('patientprofilepage', patientId=patientId))
         else:
             cursor.execute('SELECT patientId FROM patient')
             patientlist = cursor.fetchall()
             totalpatient = cursor.rowcount
             totalpatient = totalpatient+1
             msg = 'Incorrect Patient Id or email !'
-    return render_template('login.html', msg = msg, totalpatient = totalpatient)
+    return render_template('login.html', msg=msg, totalpatient=totalpatient)
+
 
 @app.route('/register')
-@app.route('/register', methods =['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     warning = ''
     cursor.execute('SELECT patientId FROM patient')
@@ -100,7 +105,8 @@ def register():
         mobileNumber = request.form['mobileNumber']
         email = request.form['email']
         # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM patient WHERE patientId = % s', (patientId, ))
+        cursor.execute(
+            'SELECT * FROM patient WHERE patientId = % s', (patientId, ))
         patient = cursor.fetchone()
         if patient:
             warning = 'Account already exists !'
@@ -114,32 +120,39 @@ def register():
             totalpatient = totalpatient+1
     else:
         warning = 'Please fill out the form !'
-    return render_template('login.html', warning = warning, totalpatient = totalpatient)
+    return render_template('login.html', warning=warning, totalpatient=totalpatient)
+
 
 @app.route('/patientprofilepage/<string:patientId>')
 def patientprofilepage(patientId):
 
-    query_string = "SELECT name FROM patient WHERE patientId = '{}'".format(patientId)
+    query_string = "SELECT name FROM patient WHERE patientId = '{}'".format(
+        patientId)
     cursor.execute(query_string)
     row = cursor.fetchall()
     name = row[0][0]
-    query_string = "SELECT gender FROM patient WHERE patientId =  '{}'".format(patientId)
+    query_string = "SELECT gender FROM patient WHERE patientId =  '{}'".format(
+        patientId)
     cursor.execute(query_string)
     row = cursor.fetchall()
     gender = row[0][0]
-    query_string = "SELECT age FROM patient WHERE patientId =  '{}'".format(patientId)
+    query_string = "SELECT age FROM patient WHERE patientId =  '{}'".format(
+        patientId)
     cursor.execute(query_string)
     row = cursor.fetchall()
     age = row[0][0]
-    query_string = "SELECT mobileNumber FROM patient WHERE patientId =  '{}'".format(patientId)
+    query_string = "SELECT mobileNumber FROM patient WHERE patientId =  '{}'".format(
+        patientId)
     cursor.execute(query_string)
     row = cursor.fetchall()
     mobileNumber = row[0][0]
-    query_string = "SELECT email FROM patient WHERE patientId =  '{}'".format(patientId)
+    query_string = "SELECT email FROM patient WHERE patientId =  '{}'".format(
+        patientId)
     cursor.execute(query_string)
     row = cursor.fetchall()
     email = row[0][0]
-    query_string = "SELECT address FROM patient WHERE patientId =  '{}'".format(patientId)
+    query_string = "SELECT address FROM patient WHERE patientId =  '{}'".format(
+        patientId)
     cursor.execute(query_string)
     row = cursor.fetchall()
     address = row[0][0]
@@ -199,9 +212,8 @@ def patientprofilepage(patientId):
     result.append(TestIDS)
     result.append(amount)
 
-    return render_template("profile2.html", patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address, result = result, length = length, orderIds=orderIds, date=date, amount=amount, TestIDS=TestIDS)
+    return render_template("profile2.html", patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address, result=result, length=length, orderIds=orderIds, date=date, amount=amount, TestIDS=TestIDS)
     return("Working")
-
 
 
 @app.route('/home')
@@ -215,7 +227,7 @@ def addPatientPage():
     patientlist = cursor.fetchall()
     totalpatient = cursor.rowcount
     nextpatient = totalpatient+1
-    return render_template("addpatient.html", nextpatient = nextpatient)
+    return render_template("addpatient.html", nextpatient=nextpatient)
 
 
 @app.route('/addDoctorPage')
@@ -224,7 +236,7 @@ def addDoctorPage():
     doctorlist = cursor.fetchall()
     totaldoctor = cursor.rowcount
     nextdoctor = totaldoctor+1
-    return render_template("adddoctor.html", nextdoctor = nextdoctor)
+    return render_template("adddoctor.html", nextdoctor=nextdoctor)
 
 
 @app.route('/editPatientPage/<string:patientId>/<string:name>/<string:gender>/<string:age>/<string:mobileNumber>/<string:email>/<string:address>')
@@ -254,7 +266,7 @@ def addEquipmentPage():
     equipmentlist = cursor.fetchall()
     totalequipment = cursor.rowcount
     nextequipment = totalequipment+1
-    return render_template("addequipment.html", nextequipment = nextequipment)
+    return render_template("addequipment.html", nextequipment=nextequipment)
 
 
 @app.route('/editEquipmentPage/<string:equipmentId>/<string:equipmentName>/<string:price>/<string:instock>')
@@ -281,13 +293,20 @@ totalorder = totalorder+1
 
 @app.route('/placeOrderPage')
 def placeOrderPage():
+    cursor.execute('SELECT orderId FROM `order`')
+    orderlist = cursor.fetchall()
+    totalorder = cursor.rowcount
+    totalorder = totalorder+1
+
     return render_template("placeorder.html", testlist=testlist, patientnamelist=patientnamelist, patientidlist=patientidlist, doctornamelist=doctornamelist, totalorder=totalorder, doctoridlist=doctoridlist)
 
     return("Working")
 
+
 @app.route('/about')
 def about():
     return render_template("about.html")
+
 
 @app.route('/AddPatient', methods=['GET', 'POST'])
 def AddPatient():
@@ -318,7 +337,7 @@ def AddPatient():
             conn.commit()
             nextpatient = nextpatient + 1
             warning = 'Patient added successfully ! '
-    return render_template('addpatient.html', warning=warning, nextpatient = nextpatient)
+    return render_template('addpatient.html', warning=warning, nextpatient=nextpatient)
 
 
 @app.route('/AddDoctor', methods=['GET', 'POST'])
@@ -347,7 +366,7 @@ def AddDoctor():
             conn.commit()
             nextdoctor = nextdoctor + 1
             warning = 'Doctor added successfully ! '
-    return render_template('adddoctor.html', warning=warning, nextdoctor = nextdoctor)
+    return render_template('adddoctor.html', warning=warning, nextdoctor=nextdoctor)
 
 
 @app.route('/AddEquipment', methods=['GET', 'POST'])
@@ -376,7 +395,7 @@ def AddEquipment():
             conn.commit()
             nextequipment = nextequipment+1
             warning = 'Equipment added successfully ! '
-    return render_template('addequipment.html', warning=warning, nextequipment = nextequipment)
+    return render_template('addequipment.html', warning=warning, nextequipment=nextequipment)
 
 
 @app.route('/AddTest', methods=['GET', 'POST'])
@@ -603,7 +622,7 @@ def EditTest():
             cursor.execute(query_string)
             conn.commit()
             warning = 'Test details updated.'
-    return render_template('editTest.html', warning=warning)
+    return render_template('editTest.html', warning=warning, testId=testId, testName=testName, price=price)
     return("Working")
 
 
@@ -628,7 +647,7 @@ def EditDoctor():
             cursor.execute(query_string)
             conn.commit()
             warning = 'Doctor details updated.'
-    return render_template('editdoctor.html', warning=warning)
+    return render_template('editdoctor.html', warning=warning, doctorName=doctorName, doctorId=doctorId, email=email, mobileNumber=mobileNumber)
     return("Working")
 
 
@@ -656,7 +675,7 @@ def EditPatient():
             cursor.execute(query_string)
             conn.commit()
             warning = 'Patient details updated.'
-    return render_template('editpatient.html', warning=warning)
+    return render_template('editpatient.html', warning=warning, patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address)
     return("Working")
 
 
@@ -681,7 +700,7 @@ def EditEquipment():
             cursor.execute(query_string)
             conn.commit()
             warning = 'Equipment details updated.'
-    return render_template('editequipment.html', warning=warning)
+    return render_template('editequipment.html', warning=warning, equipmentId=equipmentId, equipmentName=equipmentName, price=price, instock=instock)
     return("Working")
 
 
@@ -807,9 +826,6 @@ def deleteDoctor(doctorId):
     return redirect(('/DoctorPage'))
 
 
-
-
-
 @app.route('/profile/<string:patientId>/<string:name>/<string:gender>/<string:age>/<string:mobileNumber>/<string:email>/<string:address>')
 def profile(patientId, name, gender, age, mobileNumber, email, address):
     orderIds = []
@@ -862,33 +878,32 @@ def profile(patientId, name, gender, age, mobileNumber, email, address):
     result.append(TestIDS)
     result.append(amount)
 
-    return render_template("profile.html", patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address, result = result, length = length, orderIds=orderIds, date=date, amount=amount, TestIDS=TestIDS)
+    return render_template("profile.html", patientId=patientId, name=name, gender=gender, age=age, mobileNumber=mobileNumber, email=email, address=address, result=result, length=length, orderIds=orderIds, date=date, amount=amount, TestIDS=TestIDS)
 
     return("Working")
+
 
 @app.route('/otphomescreen')
 def otphomescreen():
     return render_template('otphomescreen.html')
 
-@app.route('/otpverify',methods=['POST'])
+
+@app.route('/otpverify', methods=['POST'])
 def otpverify():
-  if request.method =='POST':
-    email = request.form["email"]
+    if request.method == 'POST':
+        email = request.form["email"]
 
-    msg = Message('OTP',sender = 'khushiverma2902@gmail.com', recipients = [email])
-    msg.body = str(otp)
-    mail.send(msg)
-    return render_template('otpverify.html')
+        msg = Message('OTP', sender='nhjkhr.2021@gmail.com',
+                      recipients=[email])
+        msg.body = str(otp)
+        mail.send(msg)
+        return render_template('otpverify.html')
 
-@app.route('/otpvalidate',methods=["POST"])
+
+@app.route('/otpvalidate', methods=["POST"])
 def validate():
-  if request.method=='POST':
-    user_otp = request.form['otp']
-    if otp == int(user_otp):
-        return render_template("otpsuccessful.html")
-  return render_template("otpfailure.html")
-
-
-
-if __name__ == '__main__':
-    app.run(debug = True)
+    if request.method == 'POST':
+        user_otp = request.form['otp']
+        if otp == int(user_otp):
+            return render_template("otpsuccessful.html")
+    return render_template("otpfailure.html")
