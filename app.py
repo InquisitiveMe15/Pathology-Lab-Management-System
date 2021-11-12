@@ -14,8 +14,8 @@ mail = Mail(app)
 
 app.config["MAIL_SERVER"] = 'smtp.gmail.com'
 app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = 'nhjkhr.2021@gmail.com'
-app.config['MAIL_PASSWORD'] = 'trop@23M'
+app.config["MAIL_USERNAME"] = ''
+app.config['MAIL_PASSWORD'] = ''
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -24,7 +24,7 @@ otp = randint(000000, 999999)
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -893,7 +893,7 @@ def otpverify():
     if request.method == 'POST':
         email = request.form["email"]
 
-        msg = Message('OTP', sender='nhjkhr.2021@gmail.com',
+        msg = Message('OTP', sender='',
                       recipients=[email])
         msg.body = str(otp)
         mail.send(msg)
