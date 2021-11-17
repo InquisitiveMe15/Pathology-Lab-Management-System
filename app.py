@@ -5,16 +5,22 @@ from flaskext.mysql import MySQL
 from datetime import date
 from flask_mail import *
 from random import *
+import pdfkit
+import os
+
+
 
 
 app = Flask(__name__)
+
+
 mysql = MySQL()
 
 mail = Mail(app)
 
 app.config["MAIL_SERVER"] = 'smtp.gmail.com'
 app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = ''
+app.config["MAIL_USERNAME"] = 'nhjkhr.2021@gmail.com'
 app.config['MAIL_PASSWORD'] = ''
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
@@ -24,7 +30,7 @@ otp = randint(000000, 999999)
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -296,6 +302,7 @@ def placeOrderPage():
     cursor.execute('SELECT orderId FROM `order`')
     orderlist = cursor.fetchall()
     totalorder = cursor.rowcount
+    print(type(totalorder))
     totalorder = totalorder+1
 
     return render_template("placeorder.html", testlist=testlist, patientnamelist=patientnamelist, patientidlist=patientidlist, doctornamelist=doctornamelist, totalorder=totalorder, doctoridlist=doctoridlist)
@@ -703,7 +710,7 @@ def EditEquipment():
     return render_template('editequipment.html', warning=warning, equipmentId=equipmentId, equipmentName=equipmentName, price=price, instock=instock)
     return("Working")
 
-
+# result = []
 @app.route('/makebill', methods=['GET', 'POST'])
 def makebill():
     if request.method == 'POST' and 'patientname' in request.form and 'patientId' in request.form and 'doctorname' in request.form and 'test1' in request.form and 'test2' in request.form and 'test3' in request.form and 'test4' in request.form:
@@ -782,6 +789,7 @@ def makebill():
             result.append(alltestid)
             result.append(alltest)
             result.append(alltestprice)
+            # Result = result
 
             date1 = date.today()
 
@@ -893,7 +901,7 @@ def otpverify():
     if request.method == 'POST':
         email = request.form["email"]
 
-        msg = Message('OTP', sender='',
+        msg = Message('OTP', sender='nhjkhr.2021@gmail.com',
                       recipients=[email])
         msg.body = str(otp)
         mail.send(msg)
@@ -907,3 +915,33 @@ def validate():
         if otp == int(user_otp):
             return render_template("otpsuccessful.html")
     return render_template("otpfailure.html")
+
+config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+
+
+# @app.route('/makepdf/<length>/<total>/<patientname>/<patientemail>/<doctorname>/<orderId>')
+# def makepdf(length,total,patientname,patientemail,doctorname,orderId):
+#     html = render_template(
+#         "bill2.html", total = total, patientname = patientname, patientemail = patientemail, doctorname = doctorname, orderId = orderId )
+#     pdf = pdfkit.from_string(html, False, configuration = config)
+#     response = make_response(pdf)
+#     response.headers["Content-Type"] = "application/pdf"
+#     response.headers["Content-Disposition"] = "inline; filename=output.pdf"
+#     return response
+
+
+
+@app.route("/sendmail/<total>/<patientname>/<patientemail>/<doctorname>/<orderId>")
+def sendmail(total,patientname,patientemail,doctorname,orderId):
+   msg = Message('Hello, Greetings from the G1 Pathology Lab', sender = 'nhjkhr.2021@gmail.com', recipients = [patientemail])
+   msg.body = "Thank you for visiting the G1 Pathology Lab. Hoping that we stood up to your expectations. Visit again.\nPatient Name = '{}'\nDoctor Name = '{}'\nOrder ID = '{}'\nTotal amount = '{}'".format(patientname, doctorname,orderId,total)
+   with app.open_resource("/##3rd_SEMESTER/CS257_DatabaseLab/Major_project/invoice/about.pdf") as fp:  
+        msg.attach("about.pdf","application/pdf",fp.read())  
+   mail.send(msg)
+   return redirect('/placeOrderPage')
+
+# @app.route('/makepdf/<result>/<int:length>/<int:total>/<string:patientname>/<string:patientemail>/<string:doctorname>/<int:orderId>')
+# def makepdf(result,length,total,patientname,patientemail,doctorname,orderId):
+
+if __name__ == "__main__":
+    app.run(debug=True)

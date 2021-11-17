@@ -93,7 +93,7 @@
   </div>
 
   <div class="sendpdfbtn"  style="background-color:#F0D9FF;height: 45px;width: 30%;margin: 30px auto;text-align:center;">
-    <a href="#" style="text-decoration: none;font-size:20px;">Send PDF</a>
+    <a href="{{ url_for('sendmail',total=total, patientname=patientname, patientemail=patientemail, doctorname=doctorname, orderId=orderId) }}" style="text-decoration: none;font-size:20px;">Send PDF</a>
   </div>
 
   <!-- <div class="edit">
