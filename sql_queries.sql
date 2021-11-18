@@ -56,6 +56,7 @@ CREATE TABLE doctor (
     mobile_number VARCHAR(45)
 
 );
+
 CREATE TABLE equipments (
 	id VARCHAR(45) PRIMARY KEY,
     name VARCHAR(45),

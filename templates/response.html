@@ -1,5 +1,5 @@
-<h3 style="text-align: center; ;margin-top: 10px;">{{numrows}} Records Found</h3>
-<table class="table table-striped custab">
+<h3 style="text-align: center; ;margin-top: 10px; color: white;">{{numrows}} Records Found</h3>
+<table class="table custab" style="color: white;">
   <thead>
     <tr>
       <th>PatientID</th>
@@ -13,7 +13,7 @@
       <th>Edit</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody style="color: white;">
 
     {% for row in patient %}
     <!-- <tr>
@@ -26,7 +26,7 @@
     <td>{{row.address}}</td>
    </tr> -->
 
-    <tr>
+    <tr style="color: white;">
       <td>{{row[0]}}</td>
       <td>{{row[1]}}</td>
       <td>{{row[2]}}</td>
@@ -34,7 +34,7 @@
       <td>{{row[4]}}</td>
       <td>{{row[5]}}</td>
       <td>{{row[6]}}</td>
-      <td><a href="{{ url_for('profile', patientId = row[0], name = row[1], gender = row[2], age = row[3], mobileNumber = row[4], email = row[5], address = row[6] )}}">VIEW</a></td>
-      <td><a href="{{ url_for('editPatientPage', patientId = row[0], name = row[1], gender = row[2], age = row[3], mobileNumber = row[4], email = row[5], address = row[6] )}}">EDIT</a></td>
+      <td><a href="{{ url_for('profile', patientId = row[0], name = row[1], gender = row[2], age = row[3], mobileNumber = row[4], email = row[5], address = row[6] )}}" style="color: white;">VIEW</a></td>
+      <td><a href="{{ url_for('editPatientPage', patientId = row[0], name = row[1], gender = row[2], age = row[3], mobileNumber = row[4], email = row[5], address = row[6] )}}" style="color: white;">EDIT</a></td>
     </tr>
     {% endfor %}
