@@ -1,6 +1,6 @@
 body {
     margin: auto;
-    background-color: #f7eefc;  
+    background-color: #f7eefc;
     font-family: 'Open Sans', sans-serif;
   }
   .navbar{
@@ -28,8 +28,8 @@ body {
     top: 0px;
     z-index:2;
 }
-  
-  
+
+
   form h1 {
     font-size: 18px;
     background: #CAB8FF none repeat scroll 0% 0%;
@@ -37,10 +37,10 @@ body {
     padding: 22px 25px;
     border-radius: 5px 5px 0px 0px;
     margin: auto;
-    text-shadow: none; 
+    text-shadow: none;
     text-align:left
   }
-  
+
   form {
     border-radius: 5px;
     max-width:700px;
@@ -49,24 +49,24 @@ body {
     background-color: #FFFFFF;
     overflow: hidden;
   }
-  
+
   p span {
     color: #F00;
   }
-  
+
   p {
     margin: 0px;
     font-weight: 500;
     line-height: 2;
     color:#333;
   }
-  
+
   h1 {
     text-align:center;
     text-shadow: 1px 1px 0px #FFF;
     margin:50px 0px 0px 0px
   }
-  
+
   input {
     border-radius: 0px 5px 5px 0px;
     border: 1px solid #CAB8FF;
@@ -76,8 +76,8 @@ body {
     float: left;
     padding: 0px 15px;
   }
-  
-  
+
+
   a:link{
     color: #8157ff;
     text-decoration: none;
@@ -89,18 +89,18 @@ body {
   a:active {
     color: green;
   }
-  
 
-  
+
+
   .form-group {
     overflow: hidden;
     clear: both;
   }
-  
+
   .form-group p {
     margin-left: 10px;
   }
-  
+
   .icon-case {
     width: 35px;
     float: left;
@@ -111,16 +111,16 @@ body {
     text-align: center;
     line-height:40px;
   }
-  
+
   i {
     color:#555;
   }
-  
+
   .contentform {
     padding: 40px 20px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-  
+
   .button-contact{
     background-color: #CAB8FF;
     color: #FFF;
@@ -133,7 +133,7 @@ body {
     margin-top: 40px;
     font-size: 18px;
   }
-  
+
   .row {
     /* width:49.5%;  */
     /* float:left; */
@@ -141,7 +141,7 @@ body {
     box-sizing: border-box;
     padding: 0px 15px 0px 0px;
   }
-  
+
   /* .rightcontact {
     width:49.5%;
     float:right;
@@ -158,7 +158,7 @@ body {
       margin-top: 5px;
       margin-bottom: 5px;
   }
-  
+
   .heading{
     margin-top: 10px;
   }
