@@ -21,7 +21,7 @@
     <script type="text/javascript">
         function confirmation() {
           var res = confirm("Are you sure you want to edit this entry?");
-    
+
           if (res)
             return true;
           else
@@ -30,7 +30,7 @@
       </script>
 </head>
 
-<body>
+<body style="background-image:url('https://img.freepik.com/free-vector/light-blue-flower-petals-falling-down-vibrant-romantic-flowers-explosion-flying-petal-white-wide-background-love-romance-concept-decent-wedding-invitation_174187-583.jpg?size=626&ext=jpg');background-size: cover;">
     <!-- navbar -->
     <div class="Navbar">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
@@ -80,7 +80,7 @@
     </div>
 
     <div class="contentform">
-        <form method="POST" action="{{ url_for('EditTest') }}" id="form" class="form" onsubmit="return confirmation();">
+        <form style="margin-top:0;background-color:#DEDEED;padding-left:10px;padding-right:10px;" method="POST" action="{{ url_for('EditTest') }}" id="form" class="form" onsubmit="return confirmation();">
             <h1>Do you have any questions? please do not hesitate to <a href="{{ url_for('about') }}">contact us!</a> 🙂</h1>
 
             <div class="row">
