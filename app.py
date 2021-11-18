@@ -20,8 +20,8 @@ mail = Mail(app)
 
 app.config["MAIL_SERVER"] = 'smtp.gmail.com'
 app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = 'nhjkhr.2021@gmail.com'
-app.config['MAIL_PASSWORD'] = ''
+app.config["MAIL_USERNAME"] = 'khushiverma2902@gmail.com'
+app.config['MAIL_PASSWORD'] = 'gskd17vi'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -30,7 +30,7 @@ otp = randint(000000, 999999)
 
 # configuring MySQL for the web application
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Thds@19xcNh#20J'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'KHU1*ver'
 app.config['MYSQL_DATABASE_DB'] = 'pathology'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -901,7 +901,7 @@ def otpverify():
     if request.method == 'POST':
         email = request.form["email"]
 
-        msg = Message('OTP', sender='nhjkhr.2021@gmail.com',
+        msg = Message('OTP', sender='khushiverma2902@gmail.com',
                       recipients=[email])
         msg.body = str(otp)
         mail.send(msg)
@@ -916,7 +916,7 @@ def validate():
             return render_template("otpsuccessful.html")
     return render_template("otpfailure.html")
 
-config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+# config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
 
 
 # @app.route('/makepdf/<length>/<total>/<patientname>/<patientemail>/<doctorname>/<orderId>')
@@ -935,8 +935,8 @@ config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\
 def sendmail(total,patientname,patientemail,doctorname,orderId):
    msg = Message('Hello, Greetings from the G1 Pathology Lab', sender = 'nhjkhr.2021@gmail.com', recipients = [patientemail])
    msg.body = "Thank you for visiting the G1 Pathology Lab. Hoping that we stood up to your expectations. Visit again.\nPatient Name = '{}'\nDoctor Name = '{}'\nOrder ID = '{}'\nTotal amount = '{}'".format(patientname, doctorname,orderId,total)
-   with app.open_resource("/##3rd_SEMESTER/CS257_DatabaseLab/Major_project/invoice/about.pdf") as fp:  
-        msg.attach("about.pdf","application/pdf",fp.read())  
+   with app.open_resource("/##3rd_SEMESTER/CS257_DatabaseLab/Major_project/invoice/about.pdf") as fp:
+        msg.attach("about.pdf","application/pdf",fp.read())
    mail.send(msg)
    return redirect('/home')
 
