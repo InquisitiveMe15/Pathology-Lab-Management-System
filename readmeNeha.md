@@ -1,5 +1,5 @@
-**Landing Page**
-![Screenshot (516)](https://user-images.githubusercontent.com/85685489/142489836-e119abe6-8876-4388-a8d1-81c52f084a02.png)
+**Landing Page** <br />
+![Screenshot (516)](https://user-images.githubusercontent.com/85685489/142489836-e119abe6-8876-4388-a8d1-81c52f084a02.png) <br />
 We have make our project in such a way that it can be used both by the labstaff as well as the patients. <br />
 Lab staff has a password through which they can enter the system. <br />
 
