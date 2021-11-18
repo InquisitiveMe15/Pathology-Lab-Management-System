@@ -818,20 +818,20 @@ def deleteEquipment(equipmentId):
     return redirect(('/equipmentPage'))
 
 
-@app.route('/deleteTest/<string:testId>')
-def deleteTest(testId):
-    query_string = "DELETE FROM test WHERE testId='{}'".format(testId)
-    cursor.execute(query_string)
-    conn.commit()
-    return redirect(('/viewTestPage'))
+# @app.route('/deleteTest/<string:testId>')
+# def deleteTest(testId):
+#     query_string = "DELETE FROM test WHERE testId='{}'".format(testId)
+#     cursor.execute(query_string)
+#     conn.commit()
+#     return redirect(('/viewTestPage'))
 
 
-@app.route('/deleteDoctor/<string:doctorId>')
-def deleteDoctor(doctorId):
-    query_string = "DELETE FROM doctor WHERE id='{}'".format(doctorId)
-    cursor.execute(query_string)
-    conn.commit()
-    return redirect(('/DoctorPage'))
+# @app.route('/deleteDoctor/<string:doctorId>')
+# def deleteDoctor(doctorId):
+#     query_string = "DELETE FROM doctor WHERE id='{}'".format(doctorId)
+#     cursor.execute(query_string)
+#     conn.commit()
+#     return redirect(('/DoctorPage'))
 
 
 @app.route('/profile/<string:patientId>/<string:name>/<string:gender>/<string:age>/<string:mobileNumber>/<string:email>/<string:address>')
@@ -938,7 +938,7 @@ def sendmail(total,patientname,patientemail,doctorname,orderId):
    with app.open_resource("/##3rd_SEMESTER/CS257_DatabaseLab/Major_project/invoice/about.pdf") as fp:  
         msg.attach("about.pdf","application/pdf",fp.read())  
    mail.send(msg)
-   return redirect('/placeOrderPage')
+   return redirect('/home')
 
 # @app.route('/makepdf/<result>/<int:length>/<int:total>/<string:patientname>/<string:patientemail>/<string:doctorname>/<int:orderId>')
 # def makepdf(result,length,total,patientname,patientemail,doctorname,orderId):

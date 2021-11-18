@@ -86,7 +86,7 @@
       <th>Email</th>
       <th>Mobile Number</th>
       <th>Edit</th>
-      <th>Delete</th>
+      <!-- <th>Delete</th> -->
 
     </tr>
 
@@ -97,8 +97,8 @@
       {% endfor %}
       <td><a href="{{ url_for('editDoctorPage', doctorName = result[1][i], doctorId = result[0][i], email = result[2][i], mobileNumber = result[3][i] )}}">EDIT</a></td>
       <!-- <button type="submit" class="button-contact">DELETE</button> -->
-      <td><a href="{{ url_for('deleteDoctor', doctorId = result[0][i]) }}"
-          onclick="return confirmation()">DELETE</a></td>
+      <!-- <td><a href="#"
+          onclick="return confirmation()">DELETE</a></td> -->
 
     </tr>
     {% endfor %}

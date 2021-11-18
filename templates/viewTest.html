@@ -80,7 +80,7 @@
       <th>Test Name</th>
       <th>Price(in rupees)</th>
       <th>Edit</th>
-      <th>Delete</th>
+      <!-- <th>Delete</th> -->
 
     </tr>
 
@@ -90,7 +90,7 @@
       <td>{{ result[j][i] }}</td>
       {% endfor %}
       <td><a href="{{ url_for('editTestPage', testId = result[0][i], testName = result[1][i], price = result[2][i] )}}">EDIT</a></td>
-      <td><a href="{{ url_for('deleteTest', testId = result[0][i]) }}" onclick="return confirmation()">DELETE</a></td>
+      <!-- <td><a href="#" onclick="return confirmation()">DELETE</a></td> -->
 
     </tr>
     {% endfor %}
