@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='placeorder.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Noto+Sans+Mono:wght@300&family=Roboto+Slab:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function confirmation() {
+            var res = confirm("Are you sure you want to place order for these tests?");
+
+            if (res)
+                return true;
+            else
+                return false;
+        }
+    </script>
+</head>
+
+<body style="background-image:url('https://img.freepik.com/free-vector/light-blue-flower-petals-falling-down-vibrant-romantic-flowers-explosion-flying-petal-white-wide-background-love-romance-concept-decent-wedding-invitation_174187-583.jpg?size=626&ext=jpg');background-size: cover;">
+    <!-- navbar -->
+    <div class="Navbar">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F0D9FF;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('home') }}"><img src="/static/photos/logo.png" alt=".."
+                        width="45" height="35" class="d-inline-block align-text-top"> G1 Pathology Lab</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('addPatientPage') }}">Add Patient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('DoctorPage') }}">| Doctors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('viewTestPage') }}">| View Tests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('addTestPage')}}">| Add Test</a>
+                        </li>
+                        <li class="nav-item">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('equipmentPage')}}">| Equipments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}">| Search Patient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('placeOrderPage') }}">| Place Order</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('about') }}">| About</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <h1 class="heading" style="margin-top:30px;font-weight:bold;">CHOOSE TESTS</h1>
+
+    <div id="sendmessage">
+        <div>{{ warning }}</div>
+    </div>
+
+    <form method="POST" action="{{ url_for('makebill')}}" id="form" class="form" onsubmit="return confirmation();"
+        style="border: 5px solid rgb(131, 121, 167); border-radius: 10px; padding: 2%;margin-top:5px;">
+        <div style=" margin-bottom: 15px;">
+            <div style="margin: 5px;">
+
+                <h1 style="text-align: center;">OrderID: {{totalorder}}</h1></div>
+
+                <div class="mb-3" style="margin: 20px;margin-top:0;"><br>
+
+                  <div style="margin: 5px;">
+                <h5 style="width:140px;">OrderID : <span style="color:red;">*</span></h5>
+                <input type="text" name="orderId" id="orderId" data-rule="required" value="{{ totalorder }}"/>
+                <br>
+              </div>
+
+                <div style="margin: 5px;">
+                <h5 style="width:200px;">Patient name : <span style="color:red;">*</span></h5>
+                <SELECT name="patientname" id="patientname" style="font-family:verdana;margin-bottom:15px;">
+                    <option style="margin-left:30px;" value="NULL">NULL</option>
+                    {% for j in patientnamelist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
+                    {% endfor %}
+                </SELECT>
+                <br>
+              </div>
+
+            <div style="margin: 5px;">
+                <h5 style="width:160px;">Patient ID : <span style="color:red;">*</span></h5>
+                <SELECT name="patientId" id="patientId" style="font-family:verdana;margin-bottom:15px;">
+                    <option style="margin-left:30px;" value="NULL">NULL</option>
+                    {% for j in patientidlist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
+                    {% endfor %}
+                </SELECT>
+                <br>
+
+            </div>
+
+            <div style="margin: 5px;">
+                <h5 style="width:190px;">Prescribed By <span style="color:red;">*</span></h5>
+                <SELECT name="doctorname" id="doctorname" style="font-family:verdana;margin-bottom:15px;">
+                    <option style="margin-left:30px;" value="NULL">NULL</option>
+                    {% for j in doctornamelist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
+                    {% endfor %}
+                </SELECT>
+                <br>
+
+            </div>
+            <div style="margin: 5px;">
+                <h5 style="width:155px;">Doctor ID : <span style="color:red;">*</span></h5>
+                <SELECT name="doctorId" id="doctorId" style="font-family:verdana;margin-bottom:15px;">
+                    <option style="margin-left:30px;" value="NULL">NULL</option>
+                    {% for j in doctoridlist %}
+                    <OPTION value="{{j[0]}}">{{j[0]}}</OPTION>
+                    {% endfor %}
+                </SELECT>
+                <br>
+              </div>
+            </div>
+        </div>
+
+
+        <h1>SELECT TESTS</h1>
+        <div class="mb-3" style="margin: 20px;margin-top:0;"><br>
+            <!-- <p>Test 1 </p> -->
+            <h6 style="width:200px;">Test 1</h6>
+            <SELECT style="margin-bottom:15px;" name="test1" id="test1" style="font-family:verdana;">
+                <option  value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+            <br>
+            <!-- <p>Test 2 </p> -->
+            <h6 style="width:200px;">Test 2</h6>
+            <SELECT style="margin-bottom:15px;" name="test2" id="test2" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+            <br>
+            <!-- <p>Test 3 </p> -->
+            <h6 style="width:200px;">Test 3</h6>
+            <SELECT style="margin-bottom:15px;" name="test3" id="test3" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+            <br>
+            <!-- <p>Test 4 </p> -->
+            <h6 style="width:200px;">Test 4</h6>
+            <SELECT style="margin-bottom:15px;" name="test4" id="test4" style="font-family:verdana;">
+                <option value="NULL">NULL</option>
+                {% for j in testlist %}
+                <OPTION value="{{j[1]}}">{{j[1]}}</OPTION>
+                {% endfor %}
+            </SELECT>
+        </div>
+
+
+
+        <div class="submitbtn" style="text-align: center;">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+
+</body>
+
+</html>

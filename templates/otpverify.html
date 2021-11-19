@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OTP Verification</title>
+    <style media="screen">
+      body {
+        text-align:center;
+        background-color: white;
+      }
+
+      h1 {
+        margin-top:50px;
+        color: #002366;
+        text-shadow: 0 2 2 grey;
+        font-size:3rem;
+        text-align: center;
+      }
+      form {
+        border-radius: 5px;
+        max-width:700px;
+        width:100%;
+        margin: 5% auto;
+        background-color: #CAB8FF;
+        overflow: hidden;
+      }
+
+      input {
+        border-radius: 0px 5px 5px 0px;
+        border: 1px solid #CAB8FF;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        width: 70%;
+        height: 37px;
+        padding: 0px 15px;
+      }
+      .submitbtn{
+        margin-top:0;
+        margin-left:46px;
+        background-color:rgb(145,0,255);
+      }
+      .dec{
+        height:190px;
+        background-color: #CAB8FF;
+      }
+    </style>
+</head>
+
+<body>
+
+<h1>OTP Verification</h1>
+<form action = "/otpvalidate" method="post">
+
+<h3> One-time password has been sent to the email id. Please check the email for the verification.</h3>
+
+Enter OTP: <input type="text" name="otp">
+
+<input class="submitbtn" type="submit" value="Submit">
+
+</form>
+<div class="dec">
+
+</div>
+</body>
+</html>

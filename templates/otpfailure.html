@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>OTP verification</title>
+    <style media="screen">
+      body {
+        text-align:center;
+        background-color: white;
+      }
+
+      h1 {
+        margin-top:50px;
+        color: #002366;
+        text-shadow: 0 2 2 grey;
+        font-size:3rem;
+        text-align: center;
+      }
+      form {
+        border-radius: 5px;
+        max-width:700px;
+        width:100%;
+        margin: 5% auto;
+        background-color: #CAB8FF;
+        overflow: hidden;
+      }
+
+      input {
+        border-radius: 0px 5px 5px 0px;
+        border: 1px solid #CAB8FF;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        width: 70%;
+        height: 37px;
+        padding: 0px 15px;
+      }
+      .submitbtn{
+        margin-top:0;
+        margin-left:15px;
+        background-color:rgb(145,0,255);
+      }
+      .dec{
+        height:190px;
+        background-color: #CAB8FF;
+      }
+    </style>
+    <script type="text/javascript">
+    function myfunc(){
+      var em = window.location.search.substring(1).split(':')[1];
+      document.getElementById('emspace').value = em;
+    }
+    </script>
+  </head>
+
+
+  <body onload="myfunc()">
+    <h1>OTP Incorrect</h1>
+    <form action = "/otpverify" method = "POST">
+    <input type="email" name="email" id="emspace" autocomplete="off" >
+    <input class = "submitbtn" type = "submit" value="Send OTP to this Email-Id">
+    </form>
+    <!-- <div style="background-color:#F0D9FF;height: 45px;width: 30%;margin: 30px auto;text-align:center;">
+      <a href="/home" style="text-decoration: none;color:white;font-size:20px;">Back to Home Page</a>
+    </div> -->
+    <div class="dec">
+
+    </div>
+  </body>
+</html>

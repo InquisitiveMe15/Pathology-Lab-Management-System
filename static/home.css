@@ -1,0 +1,159 @@
+body{
+    text-align:center;
+    background-color: white;
+    z-index: -1;
+    background-image: url("https://c4.wallpaperflare.com/wallpaper/1019/569/252/waveforms-lines-digital-art-colorful-wallpaper-preview.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .containing{
+    display: flex;
+  }
+  .navbar{
+    margin-top: 0px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .navbar-light .navbar-brand {
+    color: rgb(145,0,255);
+  }
+  .navbar-brand{
+    font-family: 'Roboto Slab', serif;
+    font-size:1.7rem;
+    font-weight:900;
+    letter-spacing:2px;
+  }
+  li a{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+    font-weight: 700;
+  }
+  .Navbar{
+    position: sticky;
+    top: 0px;
+    z-index:2;
+}
+  .card{
+    flex:1;
+    display:flex;
+    margin: 15px;
+  }
+  .d-flex{
+    width: 30%;
+    margin: 70px auto 40px auto;
+  }
+  .card-img-top{
+    flex-direction: column;
+    height: 200px;
+    width:100%;
+  }
+  .card-body{
+    flex-direction: column;
+    background-color: #CAB8FF;
+    cursor:pointer;
+  }
+  a.card-title{
+    color: black;
+  }
+  .card-body a:link{
+    color: #000000;
+    text-decoration: none;
+  }
+  .card-body a:hover{
+    color: hotpink;
+    text-decoration: underline;
+  }
+  .card-body a:active{
+    color: green;
+  }
+  .card-title{
+    font-family: 'Architects Daughter', cursive;
+    font-weight:400;
+    font-size:1.6rem;
+  }
+  .footer{
+     /* position:absolute; */
+     /* bottom:0; */
+     width:100%;
+     background-color:#F0D9FF;
+     text-align: center;
+     /* margin-bottom:0; */
+     /* margin-top: 20px; */
+  }
+  /* .footer{
+    padding: 3%;
+  } */
+  .footer .p1{
+     /* color: white; */
+     font-size:1rem;
+     padding-top: 15px;
+     font-family: monospace;
+     margin-bottom:0;
+  }
+  .footer .p2{
+    /* color: white; */
+    font-size:1rem;
+    padding-bottom: 15px;
+    font-family: monospace;
+    margin:0;
+  }
+  .card div:hover{
+    background-color: #F0D9FF;
+  }
+  .about{
+    padding: 5%;
+    font-size: large;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #F0D9FF;
+  }
+  .search-table{
+    padding: 10%;
+    margin-top: -6%;
+}
+.search-box{
+    background: #CAB8FF;
+    border: 1px solid #ababab;
+    padding: 3%;
+}
+.search-box input:focus{
+    box-shadow:none;
+    border:2px solid #eeeeee;
+}
+.search-list{
+    background: #fff;
+    border: 1px solid #967171;
+    border-top: none;
+}
+.containing{
+  margin-bottom: 2cm;
+}
+.sixth{
+  text-align: center;
+  padding: 4%;
+  background-color: #CAB8FF;
+}
+.sixth h2{
+  margin-bottom: 40px;
+}
+.sixth p{
+  margin-bottom: 4px;
+}
+.sixth a{
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+.sixth a:hover{
+  color: rgb(146, 70, 218);
+  text-decoration: none;
+}
+.fab{
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 30px;
+  color: black;
+}
+.fab:hover{
+  color: blueviolet;
+}
